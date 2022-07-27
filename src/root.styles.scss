@@ -1,0 +1,10 @@
+@import "~lbh-frontend/lbh/base";
+@import "~lbh-frontend/lbh/core/all";
+@import "~lbh-frontend/lbh/objects/all";
+@import "~govuk-frontend/govuk/helpers/media-queries";
+@import "~govuk-frontend/govuk/overrides/all";
+@import "~lbh-frontend/lbh/components/lbh-summary-list/summary-list";
+
+* {
+  @include lbh-font;
+}

@@ -1,0 +1,18 @@
+{
+  "extends": "@hackney/eslint-config",
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.+(test|spec).+(j|t)s?(x)",
+          "test?(s)/**/*.+(j|t)s?(x)",
+          "cypress/**/*.+(j|t)s",
+          "**/*.config.?(m)js",
+          "**/test-utils.ts?(x)",
+          "src/mocks/*.ts"
+        ]
+      }
+    ]
+  }
+}
