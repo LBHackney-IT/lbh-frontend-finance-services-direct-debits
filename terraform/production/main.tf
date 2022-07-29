@@ -7,11 +7,11 @@ terraform {
     bucket  = "terraform-state-housing-production"
     encrypt = true
     region  = "eu-west-2"
-    key     = "services/finance-details-frontend/state"
+    key     = "services/finance-services-direct-debits/state"
   }
 }
 resource "aws_s3_bucket" "frontend-bucket-production" {
-  bucket = "lbh-housing-finance-details-frontend-production.hackney.gov.uk"
+  bucket = "lbh-housing-finance-services-direct-debits-production.hackney.gov.uk"
   acl    = "private"
   versioning {
     enabled = true
@@ -23,7 +23,7 @@ resource "aws_s3_bucket" "frontend-bucket-production" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["GET"]
-    allowed_origins = ["https://hfs.hackney.gov.uk"]
+    allowed_origins = ["https://finance-services.hackney.gov.uk"]
     expose_headers  = ["x-amz-server-side-encryption","x-amz-request-id","x-amz-id-2"]
     max_age_seconds = 3000
   }
@@ -42,7 +42,7 @@ module "cloudfront-production" {
   use_cloudfront_cert = true
 }
 resource "aws_ssm_parameter" "cdn" {
-  name  = "/housing-finance-details/production/app-url"
+  name  = "/housing-finance-services-direct-debits/production/app-url"
   type  = "String"
   value = "https://${module.cloudfront-production.cloudfront_domain_name}"
   overwrite = true

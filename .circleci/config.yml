@@ -134,14 +134,13 @@ jobs:
                 name: build
                 command: |
                     export APP_ENV=development
-                    export APP_CDN=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/app-url --query Parameter.Value --output text)
-                    export FINANCE_DETAILS_API=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/api-url --query Parameter.Value --output text)
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-details-frontend-development.hackney.gov.uk/ --exclude "*.json"
-                    aws s3 sync dist s3://lbh-housing-finance-details-frontend-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-development.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     build-deploy-staging:
         executor: node-executor
@@ -157,14 +156,13 @@ jobs:
                   name: build
                   command: |
                     export APP_ENV=staging
-                    export APP_CDN=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/app-url --query Parameter.Value --output text)
-                    export FINANCE_DETAILS_API=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/api-url --query Parameter.Value --output text)
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-details-frontend-staging.hackney.gov.uk/ --exclude "*.json"
-                    aws s3 sync dist s3://lbh-housing-finance-details-frontend-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-staging.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     build-deploy-production:
         executor: node-executor
@@ -180,14 +178,13 @@ jobs:
                   name: build
                   command: |
                     export APP_ENV=production
-                    export APP_CDN=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/app-url --query Parameter.Value --output text)
-                    export FINANCE_DETAILS_API=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/api-url --query Parameter.Value --output text)
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-details-frontend-production.hackney.gov.uk/ --exclude "*.json"
-                    aws s3 sync dist s3://lbh-housing-finance-details-frontend-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-production.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     assume-role-development:
         executor: docker-python
