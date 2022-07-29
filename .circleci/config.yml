@@ -139,8 +139,8 @@ jobs:
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-development.hackney.gov.uk/ --exclude "*.json"
-                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-finance-services-direct-debits-development.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-finance-services-direct-debits-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     build-deploy-staging:
         executor: node-executor
@@ -161,8 +161,8 @@ jobs:
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-staging.hackney.gov.uk/ --exclude "*.json"
-                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-finance-services-direct-debits-staging.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-finance-services-direct-debits-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     build-deploy-production:
         executor: node-executor
@@ -183,8 +183,8 @@ jobs:
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-production.hackney.gov.uk/ --exclude "*.json"
-                    aws s3 sync dist s3://lbh-housing-finance-services-direct-debits-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-finance-services-direct-debits-production.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-finance-services-direct-debits-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     assume-role-development:
         executor: docker-python
