@@ -1,8 +1,8 @@
 {
-  "name": "@mtfh/finance-details",
+  "name": "@mtfh/finance-direct-debits",
   "license": "MIT",
   "version": "0.0.1",
-  "main": "src/mtfh-finance-details.tsx",
+  "main": "src/mtfh-finance-direct-debits.tsx",
   "scripts": {
     "start": "webpack serve --port 9010",
     "start:standalone": "webpack serve --env standalone",

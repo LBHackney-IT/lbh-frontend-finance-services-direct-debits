@@ -9,14 +9,14 @@ const {
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "mtfh",
-    projectName: "finance-details",
+    projectName: "finance-direct-debits",
     webpackConfigEnv,
     argv,
   });
 
   return merge(defaultConfig, {
     entry: {
-      'finance-details': defaultConfig.entry,
+      "finance-direct-debits": defaultConfig.entry,
     },
     output: {
       filename: "[name].[contenthash].js",
