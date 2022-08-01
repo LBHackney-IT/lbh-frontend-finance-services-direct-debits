@@ -4,9 +4,9 @@ import { render } from "@hackney/mtfh-test-utils";
 // import { screen, waitFor } from "@testing-library/react";
 // import userEvent from "@testing-library/user-event";
 
-import { FinanceDetailsView } from "./finance-details-view";
+import { HomeView } from "./Home";
 
 test("FinanceDetailsView renders finance details component", async () => {
-  render(<FinanceDetailsView />);
+  render(<HomeView />);
   // add tests for finance details view rendering
 });

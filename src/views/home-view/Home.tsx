@@ -4,12 +4,10 @@ import { Layout } from "@mtfh/common/lib/components";
 
 import "./styles.scss";
 
-export const FinanceDetailsView = (): JSX.Element => {
+export const HomeView = (): JSX.Element => {
   return (
     <Layout>
-      <h1 className="lbh-heading-h1">
-        Finance Details Component Rendered Here
-      </h1>
+      <h1 className="lbh-heading-h1">Your Component Rendered Here</h1>
     </Layout>
   );
 };

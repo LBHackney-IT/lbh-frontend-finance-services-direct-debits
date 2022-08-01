@@ -11,7 +11,7 @@ terraform {
   }
 }
 resource "aws_s3_bucket" "frontend-bucket-staging" {
-  bucket = "lbh-housing-finance-services-direct-debits-staging.hackney.gov.uk"
+  bucket = "lbh-finance-services-direct-debits-staging.hackney.gov.uk"
   acl    = "private"
   versioning {
     enabled = true
