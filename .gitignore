@@ -71,3 +71,4 @@ dist
 # Yalc
 .yalc
 yalc.lock
+src/.DS_Store
