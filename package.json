@@ -15,12 +15,6 @@
     "coverage": "jest --coverage",
     "watch-tests": "jest --watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn test --coverage"
-    }
-  },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "eslint --cache --fix",

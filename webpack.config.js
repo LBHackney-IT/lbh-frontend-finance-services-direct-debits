@@ -38,6 +38,11 @@ module.exports = (webpackConfigEnv, argv) => {
       // Add any required environment variables eg api endpoint here
       new webpack.EnvironmentPlugin({
         APP_ENV: dotenv.APP_ENV || "development",
+        API_DIRECT_DEBIT: dotenv.DIRECT_DEBIT_API || '',
+        API_HOUSING: dotenv.HOUSING_API || '',
+        API_ASSET: dotenv.ASSET_API || '',
+        API_TENURE: dotenv.TENURE_API || '',
+        API_PERSON: dotenv.PERSON_API || '',
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
