@@ -1,6 +1,11 @@
-import React from "react"
-import { Text } from '../references/Text'
+import React from "react";
 
-const SubmitButton = <button className="btn btn-primary" type="submit">{Text.Save}</button>
+import { TextRef } from "references/TextReferences";
 
-export default SubmitButton
+const SubmitButton = (
+  <button className="btn btn-primary" type="submit">
+    {TextRef.Save}
+  </button>
+);
+
+export default SubmitButton;
