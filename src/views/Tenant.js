@@ -28,33 +28,36 @@ const Tenant = () => {
     searchCall();
   }, [TenantId]);
 
-  const back = (
-    <button
-      onClick={() => history.push(-1)}
-      className="mt-0 govuk-button lbh-button lbh-button-secondary"
-    >
-      {TextReferences.TextRef.Back}
-    </button>
-  );
-
   if (searching) {
     return (
       <>
         <h1>{TextReferences.Titles.Tenant}</h1>
-        {back}
+        <button
+          onClick={() => history.push(-1)}
+          className="mt-0 govuk-button lbh-button lbh-button-secondary"
+        >
+          {TextReferences.TextRef.Back}
+        </button>
         <h4>{TextReferences.TextRef.Searching}</h4>
       </>
     );
   }
 
   if (tenantData === undefined) {
-    return <>
-      <h1>{TextReferences.Titles.Tenant}</h1>
-      {back}
-      <h4>Tenant data could not be found.</h4>
-    </>;
+    return (
+      <>
+        <h1>{TextReferences.Titles.Tenant}</h1>
+        <button
+          onClick={() => history.push(-1)}
+          className="mt-0 govuk-button lbh-button lbh-button-secondary"
+        >
+          {TextReferences.TextRef.Back}
+        </button>
+        <h4>Tenant data could not be found.</h4>
+      </>
+    );
   }
-    
+
   if (tenantData === null) {
     return <h4>{TextReferences.TextRef.NoTenantRecords}</h4>;
   }
@@ -74,7 +77,12 @@ const Tenant = () => {
         {TextReferences.TextRef.Edit}
       </Link>
 
-      {back}
+      <button
+        onClick={() => history.push(-1)}
+        className="mt-0 govuk-button lbh-button lbh-button-secondary"
+      >
+        {TextReferences.TextRef.Back}
+      </button>
 
       {tenantData.charges && (
         <>
@@ -142,9 +150,7 @@ const Tenant = () => {
                           ? DateFormat(tenure.endDate)
                           : "Current"}
                       </td>
-                      <td className="govuk-table__cell">
-                        {CurrencyFormat()}
-                      </td>
+                      <td className="govuk-table__cell">{CurrencyFormat()}</td>
                       <td className="govuk-table__cell">{tenure.type}</td>
                       <td className="govuk-table__cell">
                         {tenure.isActive ? (
@@ -168,7 +174,6 @@ const Tenant = () => {
       )}
     </>
   );
-
 };
 
 export default Tenant;
