@@ -4,6 +4,6 @@ const TENANTS = "/tenants";
 const TENANT = "/tenant";
 const PROPERTY = "/property";
 const DIRECTDEBIT = "/direct-debit";
-const SEARCH = "/search";
+const SEARCH = "/s";
 
 export { HOME, ABOUT, TENANTS, TENANT, PROPERTY, DIRECTDEBIT, SEARCH };
