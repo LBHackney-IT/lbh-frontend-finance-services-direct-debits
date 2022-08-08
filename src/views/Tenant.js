@@ -28,7 +28,7 @@ const Tenant = () => {
     searchCall();
   }, [TenantId]);
 
-  const tenantViewOut = () => {
+  const TenantViewOut = () => {
     const back = (
       <button
         onClick={() => history.push(-1)}
@@ -167,7 +167,8 @@ const Tenant = () => {
     );
   };
 
-  return tenantViewOut();
+  return <TenantViewOut />
+
 };
 
 export default Tenant;
