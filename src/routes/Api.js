@@ -1,19 +1,19 @@
 import Cookies from "js-cookie";
 
-// const API_URLS = {
-//   DIRECTDEBIT: "https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/development",
-//   HOUSING: "https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/development",
-//   ASSET: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development",
-//   TENURE: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development",
-//   PERSON: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development",
-// };
-
 const API_URLS = {
-  HOUSING: API_HOUSING,
-  ASSET: API_ASSET,
-  TENURE: API_TENURE,
-  DIRECTDEBIT: API_DIRECT_DEBIT,
+  DIRECTDEBIT: "https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/development",
+  HOUSING: "https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/development",
+  ASSET: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development",
+  TENURE: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development",
+  PERSON: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development",
 };
+
+// const API_URLS = {
+//   HOUSING: API_HOUSING,
+//   ASSET: API_ASSET,
+//   TENURE: API_TENURE,
+//   DIRECTDEBIT: API_DIRECT_DEBIT,
+// };
 
 const postCall = async (endpoint, url, body) => {
   return fetch(`${API_URLS[endpoint]}${url}`, {
