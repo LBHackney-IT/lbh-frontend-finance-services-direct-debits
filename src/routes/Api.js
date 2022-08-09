@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
 
 const API_URLS = {
-  DIRECTDEBIT: "https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/development",
+  DIRECTDEBIT:
+    "https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/development",
   HOUSING: "https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/development",
   ASSET: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development",
   TENURE: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development",
