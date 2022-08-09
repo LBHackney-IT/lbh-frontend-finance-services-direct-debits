@@ -1,5 +1,5 @@
 import React, { useState } from "react"; // useEffect
-import { useParams } from "react-router-dom"; // useParams
+import { useNavigate, useParams } from "react-router-dom"; // useNavigate useParams
 
 import Form from "../references/Form";
 import * as TextReferences from "../references/TextReferences";
@@ -7,13 +7,16 @@ import { addDirectDebit } from "../routes/Api";
 
 const DirectDebitCreate = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
 
+  const [sentResp, setSentResp] = useState(undefined);
+  const [errors, setErrors] = useState([]);
   const [directDebits, setDirectDebits] = useState({
     targetType: "Tenant",
     targetId: TenantId, // 3fa85f64-5717-4562-b3fc-2c963f66afa6
     accountHolder: "",
-    paymentReference: "",
+    reference: "",
     bankAccountNumber: "",
     branchSortCode: "",
     serviceUserNumber: "",
@@ -25,7 +28,7 @@ const DirectDebitCreate = () => {
     bankOrBuildingSocietyPostcode: "",
     additionalAmount: null,
     overrideAmount: null,
-    firstPaymentDate: "2022-07-22T16:04:44.333Z", // 2022-07-22T16:04:44.333Z
+    firstPaymentDate: new Date(), // 2022-07-22T16:04:44.333Z
     preferredDate: 1,
   });
 
@@ -33,12 +36,49 @@ const DirectDebitCreate = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addDirectDebit(directDebits);
+    addDirectDebit(directDebits).then((data) => setSentResp(data));
   };
+
+  if (sentResp !== undefined && sentResp.id) {
+    navigate(-1);
+  }
+
+  if (sentResp !== undefined && sentResp.errors) {
+    setErrors(
+      <div className="mt-2">
+        {Object.keys(sentResp.errors).map((err, key) => {
+          return (
+            <p key={key} className="govuk-error-message lbh-error-message">
+              <span className="govuk-visually-hidden">Error:</span>{" "}
+              {sentResp.errors[err]}
+            </p>
+          );
+        })}
+      </div>
+    );
+    window.scrollTo(0, 0);
+    setSentResp(undefined);
+  }
 
   return (
     <>
-      <h1>{TextReferences.Titles.DirectDebitForm}</h1>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <h1>{TextReferences.Titles.DirectDebitForm}</h1>
+        </div>
+        <div
+          className="govuk-grid-column-one-thirds"
+          style={{ textAlign: "right" }}
+        >
+          <button
+            onClick={() => navigate(-1)}
+            className="mt-0 govuk-button lbh-button lbh-button-secondary"
+          >
+            {TextReferences.TextRef.Back}
+          </button>
+        </div>
+      </div>
+      {errors}
       <Form
         fields={TextReferences.DirectDebitFormFields}
         data={directDebits}

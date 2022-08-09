@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
+import DirectDebitList from "../fragments/DirectDebitList";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
 import * as TextReferences from "../references/TextReferences";
 import { getDirectDebits, getPerson, getProperty } from "../routes/Api";
@@ -9,7 +10,7 @@ import { descriptionList } from "../templates/descriptionListHTML";
 
 const Property = () => {
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const PropertyId = params.id ? decodeURIComponent(params.id) : "";
   const [searching, setSearching] = useState(false);
   const [property, setProperty] = useState(undefined);
@@ -42,13 +43,13 @@ const Property = () => {
     };
     items().then((response) => setTenants(response));
 
-    const directDebit = async () => {
+    const directDebitCall = async () => {
       const response = await getDirectDebits({
         TargetId: PropertyId,
       });
       setDirectDebits(response);
     };
-    directDebit();
+    directDebitCall();
   }, [property, PropertyId]);
 
   const tenantsHTML = () => {
@@ -75,19 +76,13 @@ const Property = () => {
               const address = tenant.tenures.filter(
                 (tenure) => tenure.id === PropertyId
               );
-              const directDebitLink = () =>
-                history.push(
-                  `${RouteConstants.DIRECTDEBIT}/${tenant.id}/create`
-                );
 
               return (
                 <tr className="govuk-table__row" key={tenant.id}>
-                  <td
-                    className="govuk-table__cell"
-                    data-address={JSON.stringify(address)}
-                  >
+                  <td className="govuk-table__cell">
                     <Link
                       className="lbh-link"
+                      aria-label="Tenant ID"
                       to={`${RouteConstants.TENANT}/${tenant.id}`}
                     >
                       {tenant.preferredTitle
@@ -114,8 +109,9 @@ const Property = () => {
                   </td>
                   <td className="govuk-table__cell">
                     <Link
+                      to={`${RouteConstants.DIRECTDEBIT}/${tenant.id}/create`}
                       className="govuk-button lbh-button lbh-button-sm mt-0"
-                      to={directDebitLink}
+                      title={TextReferences.TextRef.AddDirectDebit}
                     >
                       {TextReferences.TextRef.AddDirectDebit}
                     </Link>
@@ -129,29 +125,33 @@ const Property = () => {
     );
   };
 
-  const directDebitView = () => {
-    const intro = <h2>{TextReferences.Titles.DirectDebits}</h2>;
-    let results = <p>{TextReferences.TextRef.Searching}</p>;
-    if (directDebits !== undefined && directDebits.totalCount === 0) {
-      results = <p>No direct debits setup yet.</p>;
-    }
-    if (directDebits !== undefined && directDebits.totalCount !== 0) {
-      results = <p>Results.</p>;
-    }
-
-    return (
-      <>
-        {intro}
-        {results}
-        <hr />
-      </>
-    );
-  };
-
   const propertyView = () => {
+    const back = (
+      <button
+        onClick={() => navigate(-1)}
+        className="mt-0 govuk-button lbh-button lbh-button-secondary"
+      >
+        {TextReferences.TextRef.Back}
+      </button>
+    );
+
     if (searching) {
-      return <h4>{TextReferences.TextRef.Searching}</h4>;
+      return (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            <h1>{TextReferences.Titles.Property}</h1>
+            <h4>{TextReferences.TextRef.Searching}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            {back}
+          </div>
+        </div>
+      );
     }
+
     if (property === undefined) {
       return;
     }
@@ -178,10 +178,18 @@ const Property = () => {
 
     return (
       <>
-        <h1>
-          {TextReferences.Titles.Property}: {property.tenuredAsset.fullAddress}
-        </h1>
-        <p>ID: {property.id}</p>
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            <h1>{property.tenuredAsset.fullAddress}</h1>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
+        {/* <p>ID: {property.id}</p> */}
         {property.charges && (
           <>
             <h2>{TextReferences.TextRef.Financial}</h2>
@@ -218,7 +226,7 @@ const Property = () => {
             val: property.tenuredAsset.propertyReference,
           },
         ])}
-        {directDebitView()}
+        <DirectDebitList data={directDebits} />
       </>
     );
   };

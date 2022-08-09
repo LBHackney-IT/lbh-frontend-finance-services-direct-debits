@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { searchIcon } from "../references/Functions";
 import * as TextReferences from "../references/TextReferences";
@@ -7,7 +7,7 @@ import * as RouteConstants from "../routes/RouteConstants";
 // import IntroText from '../references/IntroText'
 
 const Home = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const Ref = "HousingSearch";
   const searchOptions = TextReferences[Ref];
   const [searchType, setSearchType] = useState(searchOptions[0].value);
@@ -17,10 +17,11 @@ const Home = () => {
     if (!searchTerm) {
       return;
     }
-    history.push(
+    navigate(
       `${RouteConstants.SEARCH}/${searchType}/${encodeURIComponent(
         searchTerm
-      )}/1`
+      )}/1`,
+      { replace: false }
     );
   };
 

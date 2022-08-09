@@ -21,7 +21,9 @@ const searchIcon = (
 );
 
 const MinusYear = () => {
-  return new Date().setFullYear(new Date().getFullYear() - 1);
+  const Year = new Date();
+  Year.setFullYear(Year.getFullYear() - 1);
+  return Year;
 };
 
 const DateFormat = (value) => {

@@ -57,41 +57,46 @@ const TableHeadHTML = ({ tableHead, sort, onSort }) => {
 
 const TableBodyHTML = ({ tableHead, data }) => {
   const tableHeaders = DataReferences[tableHead] || [];
+
   const tableBody = data.map((val, bodyKey) => {
     return (
       <tr className="govuk-table__row" key={bodyKey}>
-        {tableHeaders.map((row, rowKey) => {
+        {tableHeaders.map((row, key) => {
           if (row.format === "date") {
             return (
-              <td className={`govuk-table__cell${row.classes}`} key={rowKey}>
+              <td className={`govuk-table__cell${row.classes}`} key={key}>
                 {DateFormat(val[row.sort])}
               </td>
             );
           }
+
           if (row.format === "currency") {
             return (
-              <td className={`govuk-table__cell${row.classes}`} key={rowKey}>
+              <td className={`govuk-table__cell${row.classes}`} key={key}>
                 {CurrencyFormat(val[row.sort])}
               </td>
             );
           }
+
           if (row.format === "boolean") {
             return (
-              <td className={`govuk-table__cell${row.classes}`} key={rowKey}>
+              <td className={`govuk-table__cell${row.classes}`} key={key}>
                 {val[row.sort] === true ? "True" : "False"}
               </td>
             );
           }
+
           if (row.format === "time") {
             return (
-              <td className={`govuk-table__cell${row.classes}`} key={rowKey}>
+              <td className={`govuk-table__cell${row.classes}`} key={key}>
                 {DateTimeFormat(val[row.sort])}
               </td>
             );
           }
+
           if (row.format === "link") {
             return (
-              <td className={`govuk-table__cell${row.classes}`} key={rowKey}>
+              <td className={`govuk-table__cell${row.classes}`} key={key}>
                 <Link
                   to={`/${row.linkPrefix}${val[row.sort]}`}
                   className="govuk-button lbh-button lbh-button-sm mt-0"
@@ -104,7 +109,7 @@ const TableBodyHTML = ({ tableHead, data }) => {
           }
 
           return (
-            <td className={`govuk-table__cell${row.classes}`} key={rowKey}>
+            <td className={`govuk-table__cell${row.classes}`} key={key}>
               {val[row.sort]}
             </td>
           );

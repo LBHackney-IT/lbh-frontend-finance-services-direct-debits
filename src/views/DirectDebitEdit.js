@@ -44,24 +44,55 @@ const DirectDebitEdit = () => {
   };
 
   const DirectDebitEditForm = () => {
+    const h1 = <h1>Edit {TextReferences.Titles.DirectDebit}</h1>;
+    const editMsg = <p>You are currently editing Direct Debit {TenantId}.</p>;
+    const back = (
+      <Link
+        to={`${RouteConstants.DIRECTDEBIT}/${TenantId}`}
+        className="govuk-button lbh-button lbh-button-secondary"
+        style={{ marginTop: 0 }}
+      >
+        {TextReferences.TextRef.Back}
+      </Link>
+    );
+
     if (searching) {
-      return <h4>{TextReferences.TextRef.Searching}</h4>;
+      return (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            {h1}
+            {editMsg}
+            <h4>{TextReferences.TextRef.Searching}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
+      );
     }
+
     if (data === undefined) {
       return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
 
     return (
       <>
-        <h1>Edit {TextReferences.Titles.DirectDebit}</h1>
-        <p>You are currently editing Direct Debit {TenantId}.</p>
-        <Link
-          to={`${RouteConstants.DIRECTDEBIT}/${TenantId}`}
-          className="govuk-button lbh-button lbh-button-secondary"
-        >
-          {TextReferences.TextRef.Back}
-        </Link>
-
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            {h1}
+            {editMsg}
+            <h4>{TextReferences.TextRef.Searching}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
         <Form
           fields={TextReferences.DirectDebitEditFormFields}
           data={data}

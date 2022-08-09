@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"; // Link
+import { Link, useNavigate, useParams } from "react-router-dom"; // Link
 
 import { DataReferences } from "../references/DataReferences";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
@@ -12,6 +12,7 @@ import { TableBodyHTML } from "../templates/Table";
 const DirectDebitView = () => {
   const Ref = "DirectDebitMaintenance";
   const params = useParams();
+  const navigate = useNavigate();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
 
   const [searching, setSearching] = useState(false);
@@ -29,7 +30,7 @@ const DirectDebitView = () => {
     searchCall();
   }, [TenantId]);
 
-  const directDebitMaintenance = () => {
+  const DirectDebitMaintenance = () => {
     const maintenance = directDebits.results[0].directDebitMaintenance;
 
     if (!maintenance.length) {
@@ -65,50 +66,93 @@ const DirectDebitView = () => {
   };
 
   const ddView = () => {
+    const back = (
+      <button
+        onClick={() => navigate(-1)}
+        className="mt-0 govuk-button lbh-button lbh-button-secondary"
+        style={{ marginLeft: "10px" }}
+      >
+        {TextReferences.TextRef.Back}
+      </button>
+    );
+
     if (searching) {
-      return <h4>{TextReferences.TextRef.Searching}</h4>;
+      return (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            <h1>{TextReferences.Titles.DirectDebit}</h1>
+            <h4>{TextReferences.TextRef.Searching}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
+      );
     }
+
     if (directDebits === undefined) {
       return;
     }
+
     if (directDebits === null) {
-      return <h4>{TextReferences.TextRef.NothingFound}</h4>;
+      return (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            <h1>{TextReferences.Titles.DirectDebit}</h1>
+            <h4>{TextReferences.TextRef.NothingFound}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
+      );
     }
+
     const result = directDebits.results[0];
 
     return (
       <>
-        <p>
-          {result.status !== "Cancelled" && (
-            <Link
-              to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/pause`}
-              className="govuk-button lbh-button mt-0"
-            >
-              {result.isPaused ? "Unpause" : "Pause"}
-            </Link>
-          )}
-
-          {result.status !== "Cancelled" && (
-            <Link
-              to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/edit`}
-              className="govuk-button lbh-button mt-0"
-              style={{ marginLeft: "10px" }}
-            >
-              Edit
-            </Link>
-          )}
-
-          <Link
-            to={`${RouteConstants.DIRECTDEBIT}`}
-            className="govuk-button lbh-button mt-0 lbh-button-secondary"
-            style={{ marginLeft: "10px" }}
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            <h1>{TextReferences.Titles.DirectDebit}</h1>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
           >
-            {TextReferences.TextRef.Back}
-          </Link>
-        </p>
+            <p>
+              {result.status !== "Cancelled" && (
+                <Link
+                  to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/pause`}
+                  className="govuk-button lbh-button mt-0"
+                >
+                  {result.isPaused ? "Unpause" : "Pause"}
+                </Link>
+              )}
+
+              {result.status !== "Cancelled" && (
+                <Link
+                  to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/edit`}
+                  className="govuk-button lbh-button mt-0"
+                  style={{ marginLeft: "10px" }}
+                >
+                  Edit
+                </Link>
+              )}
+              {back}
+            </p>
+          </div>
+        </div>
 
         <h2>Status Information</h2>
         {descriptionList([
+          { key: "ID", val: result.id },
           { key: "Status", val: result.status },
           { key: "Paused", val: result.isPaused ? "Yes" : "No" },
           { key: "Created Date", val: DateFormat(result.createdDate) },
@@ -142,7 +186,10 @@ const DirectDebitView = () => {
           },
           { key: "Fixed Amount", val: CurrencyFormat(result.fixedAmount) },
           { key: "Fund", val: result.fund },
-          { key: "Preferred Date", val: result.preferredDate },
+          {
+            key: "Preferred Date",
+            val: TextReferences.CollectionDates[result.preferredDate],
+          },
           { key: "Payment Reference", val: result.paymentReference },
           { key: "Trans", val: result.trans },
         ])}
@@ -151,7 +198,7 @@ const DirectDebitView = () => {
         {descriptionList([
           { key: "To", val: result.bankOrBuildingSocietyTo },
           { key: "Branch Sort", val: result.branchSortCode },
-          { key: "Bank Account Number", val: result.bankAccountNumber },
+          { key: "Bank Account Number", val: result.accountNumber },
           { key: "Bank Name", val: result.bankOrBuildingSocietyName },
           {
             key: "Bank Address",
@@ -159,17 +206,12 @@ const DirectDebitView = () => {
           },
         ])}
 
-        {directDebitMaintenance()}
+        <DirectDebitMaintenance />
       </>
     );
   };
 
-  return (
-    <>
-      <h1>{TextReferences.Titles.DirectDebit}</h1>
-      {ddView()}
-    </>
-  );
+  return ddView();
 };
 
 export default DirectDebitView;

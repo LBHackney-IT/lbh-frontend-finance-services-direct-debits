@@ -8,6 +8,7 @@ const Titles = {
   Tenant: "Tenant",
   TenantForm: "Tenant Form",
   Property: "Property",
+  Properties: "Properties",
   Login: "Sign in",
 };
 
@@ -23,6 +24,7 @@ const TextRef = {
   Transactions: "Transactions",
   LastTransactions: "Last Transactions",
   NoTransactions: "No transactions to show.",
+  NoPropertiesFound: "No properties to show.",
   StartLabel: "Start:",
   EndLabel: "End:",
   SignInButton: "Sign in with Google",
@@ -39,7 +41,6 @@ const TextRef = {
   Tenure: "Tenure",
   Financial: "Financial",
   TotalCharges: "Total Charges",
-  Save: "Save",
 };
 
 const HousingSearch = [
@@ -86,7 +87,7 @@ const DirectDebitFormFields = [
       field: "input",
       required: true,
       type: "text",
-      name: "paymentReference",
+      name: "reference",
       label: "Payment Reference",
     },
   ],
@@ -138,14 +139,14 @@ const DirectDebitFormFields = [
     {
       field: "input",
       required: false,
-      type: "text",
+      type: "number",
       name: "additionalAmount",
       label: "Additional amount (for arrears collection)",
     },
     {
       field: "input",
       required: false,
-      type: "text",
+      type: "number",
       name: "overrideAmount",
       label: "Override amount",
     },
@@ -313,6 +314,13 @@ const TenantFormFields = [
   [{ field: "submit", text: "Create Tenant" }],
 ];
 
+const CollectionDates = {
+  1: "1st of the month",
+  8: "8th of the month",
+  16: "16th of the month",
+  25: "25th of the month",
+};
+
 export {
   Titles,
   TextRef,
@@ -321,4 +329,5 @@ export {
   DirectDebitEditFormFields,
   DirectDebitPauseFormFields,
   TenantFormFields,
+  CollectionDates,
 };

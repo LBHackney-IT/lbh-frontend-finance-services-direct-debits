@@ -38,10 +38,12 @@ const DirectDebitList = () => {
           </div>
 
           <div>
-            <label>File Type</label>
+            <label htmlFor="fileType">File Type</label>
             <select
+              id="fileType"
               className="govuk-input lbh-input w-100 mt-2 govuk-input--standard"
               name="exportType"
+              aria-label="File Type"
               value={exportFile.type}
               onChange={(e) =>
                 setExportFile({ ...exportFile, type: e.target.value })
@@ -83,15 +85,18 @@ const DirectDebitList = () => {
   };
 
   const directDebitFilter = () => {
-    let totalRecords = "Unknown";
-    let totalResidents = "Unknown";
-    let totalAmount = "Unknown";
-
-    if (directDebits !== undefined && directDebits !== null && !searching) {
-      totalRecords = directDebits.totalCount;
-      totalResidents = directDebits.residents;
-      totalAmount = CurrencyFormat(directDebits.totalAmount);
-    }
+    const totalRecords =
+      directDebits !== undefined && directDebits !== null && !searching
+        ? directDebits.totalCount
+        : "Unknown";
+    const totalResidents =
+      directDebits !== undefined && directDebits !== null && !searching
+        ? directDebits.residents
+        : "Unknown";
+    const totalAmount =
+      directDebits !== undefined && directDebits !== null && !searching
+        ? CurrencyFormat(directDebits.totalAmount)
+        : "Unknown";
 
     return (
       <>
@@ -117,16 +122,6 @@ const DirectDebitList = () => {
         </div>
       </>
     );
-  };
-
-  const toggleItem = (directDebitId) => {
-    const ids = [...toggle];
-    if (ids.includes(directDebitId)) {
-      ids.splice(ids.indexOf(directDebitId), 1);
-    } else {
-      ids.push(directDebitId);
-    }
-    setToggle(ids);
   };
 
   const directDebitView = () => {
@@ -189,7 +184,15 @@ const DirectDebitList = () => {
                               ? " active"
                               : ""
                           }`}
-                          onClick={() => toggleItem(directDebit.id)}
+                          onClick={() => {
+                            const ids = [...toggle];
+                            if (ids.includes(directDebit.id)) {
+                              ids.splice(ids.indexOf(directDebit.id), 1);
+                            } else {
+                              ids.push(directDebit.id);
+                            }
+                            setToggle(ids);
+                          }}
                         >
                           <svg
                             stroke="currentColor"

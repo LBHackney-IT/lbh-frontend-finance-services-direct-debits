@@ -1,17 +1,66 @@
 import React, { Fragment } from "react";
 import DatePicker from "react-date-picker";
 
+// const DateField = () => {
+//   const tSplit = data[field.name].includes('T') ? data[field.name].split('T') : [data[field.name]]
+//   const val = tSplit[0].split('-')
+//   const setDate = e => {
+//     const newVal = val
+//     if( e.target.name === 'year' ) newVal[0] = e.target.value
+//     if( e.target.name === 'month' ) newVal[1] = e.target.value
+//     if( e.target.name === 'day' ) newVal[2] = e.target.value
+//     fieldChange(field.name, newVal.join('-'), e.target.type)
+//   }
+//   return <>
+//     <input
+//       value={val[0]}
+//       type='number'
+//       required={field.required}
+//       name='year'
+//       min='1900'
+//       onChange={e => setDate(e)}
+//       className={`govuk-input lbh-input govuk-input--${fieldStatus}`}
+//       style={{ width:'86px', marginRight:'18px' }}
+//       aria-describedby="input-with-error-message-hint input-with-error-message-error"
+//     />
+//     <input
+//       value={val[1]}
+//       type='number'
+//       required={field.required}
+//       name='month'
+//       min='1'
+//       max='12'
+//       onChange={e => setDate(e)}
+//       className={`govuk-input lbh-input govuk-input--${fieldStatus}`}
+//       style={{ width:'86px', marginRight:'18px' }}
+//       aria-describedby="input-with-error-message-hint input-with-error-message-error"
+//     />
+//     <input
+//       value={val[2]}
+//       type='number'
+//       required={field.required}
+//       name='day'
+//       min='1'
+//       max='31'
+//       onChange={e => setDate(e)}
+//       className={`govuk-input lbh-input govuk-input--${fieldStatus}`}
+//       style={{ width:'86px', marginRight:'18px' }}
+//       aria-describedby="input-with-error-message-hint input-with-error-message-error"
+//     />
+//   </>
+// }
+
 const Form = (params) => {
   const { fields, data, setData, validate, setValidate, onSubmit } = params;
 
-  const fieldHTML = fields.map((group, key) => {
+  const fieldHTML = fields.map((group, fieldKey) => {
     let groupStatus = "standard";
 
     if (group[0].field === "submit") {
       return (
         <button
           className="govuk-button lbh-button"
-          key={key}
+          key={fieldKey}
           onClick={() => setValidate(true)}
         >
           {group[0].text}
@@ -25,9 +74,9 @@ const Form = (params) => {
       const fieldChange = (name, val, type) => {
         const newData = { ...data };
         if (type === "number") {
-          newData.name = Number(val) !== 0 ? Number(val) : null;
+          newData[name] = Number(val) !== 0 ? Number(val) : null;
         } else {
-          newData.name = val;
+          newData[name] = val;
         }
         setData(newData);
       };
@@ -37,55 +86,6 @@ const Form = (params) => {
         groupStatus = "error";
         fieldStatus = "error";
       }
-
-      // const DateField = () => {
-      //   const tSplit = data[field.name].includes('T') ? data[field.name].split('T') : [data[field.name]]
-      //   const val = tSplit[0].split('-')
-      //   const setDate = e => {
-      //     const newVal = val
-      //     if( e.target.name === 'year' ) newVal[0] = e.target.value
-      //     if( e.target.name === 'month' ) newVal[1] = e.target.value
-      //     if( e.target.name === 'day' ) newVal[2] = e.target.value
-      //     fieldChange(field.name, newVal.join('-'), e.target.type)
-      //   }
-      //   return <>
-      //     <input
-      //       value={val[0]}
-      //       type='number'
-      //       required={field.required}
-      //       name='year'
-      //       min='1900'
-      //       onChange={e => setDate(e)}
-      //       className={`govuk-input lbh-input govuk-input--${fieldStatus}`}
-      //       style={{ width:'86px', marginRight:'18px' }}
-      //       aria-describedby="input-with-error-message-hint input-with-error-message-error"
-      //     />
-      //     <input
-      //       value={val[1]}
-      //       type='number'
-      //       required={field.required}
-      //       name='month'
-      //       min='1'
-      //       max='12'
-      //       onChange={e => setDate(e)}
-      //       className={`govuk-input lbh-input govuk-input--${fieldStatus}`}
-      //       style={{ width:'86px', marginRight:'18px' }}
-      //       aria-describedby="input-with-error-message-hint input-with-error-message-error"
-      //     />
-      //     <input
-      //       value={val[2]}
-      //       type='number'
-      //       required={field.required}
-      //       name='day'
-      //       min='1'
-      //       max='31'
-      //       onChange={e => setDate(e)}
-      //       className={`govuk-input lbh-input govuk-input--${fieldStatus}`}
-      //       style={{ width:'86px', marginRight:'18px' }}
-      //       aria-describedby="input-with-error-message-hint input-with-error-message-error"
-      //     />
-      //   </>
-      // }
 
       return (
         <Fragment key={id}>
@@ -161,7 +161,7 @@ const Form = (params) => {
     return (
       <div
         className={`govuk-form-group lbh-form-group govuk-form-group--${groupStatus}`}
-        key={key}
+        key={fieldKey}
       >
         <fieldset className="govuk-fieldset lbh-fieldset">
           <legend className="govuk-fieldset__legend govuk-fieldset__legend w-100">

@@ -36,22 +36,48 @@ const DirectDebitPause = () => {
   };
 
   const directDebitEditForm = () => {
+    const h1 = <h1>Pause {TextReferences.Titles.DirectDebit}</h1>;
+    const back = (
+      <Link
+        to={`${RouteConstants.DIRECTDEBIT}/${TenantId}`}
+        className="govuk-button lbh-button mt-0"
+      >
+        {TextReferences.TextRef.Back}
+      </Link>
+    );
+
     if (searching) {
-      return <h4>{TextReferences.TextRef.Searching}</h4>;
+      return (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            {h1}
+            <h4>{TextReferences.TextRef.Searching}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
+      );
     }
+
     if (data === undefined) {
       return;
     }
 
     return (
       <>
-        <Link
-          to={`${RouteConstants.DIRECTDEBIT}/${TenantId}`}
-          className="govuk-button lbh-button mt-0"
-        >
-          {TextReferences.TextRef.Back}
-        </Link>
-
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">{h1}</div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
         <Form
           fields={TextReferences.DirectDebitPauseFormFields}
           data={data}
@@ -64,13 +90,7 @@ const DirectDebitPause = () => {
     );
   };
 
-  return (
-    <>
-      <h1>Pause {TextReferences.Titles.DirectDebit}</h1>
-      <p>You are currently editing Direct Debit {TenantId}.</p>
-      {directDebitEditForm()}
-    </>
-  );
+  return directDebitEditForm();
 };
 
 export default DirectDebitPause;

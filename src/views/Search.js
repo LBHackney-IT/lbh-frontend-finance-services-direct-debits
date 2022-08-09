@@ -52,8 +52,8 @@ const Tenants = () => {
       );
       return (
         <h4>
-          {TextReferences.TextRef.NoTenantRecords} "{Type}" in "
-          {searchTypeName[0].text}".
+          {TextReferences.TextRef.NoTenantRecords} &quot;{Type}&quot; in &quot;
+          {searchTypeName[0].text}&quot;.
         </h4>
       );
     }
@@ -63,7 +63,7 @@ const Tenants = () => {
         <table className="govuk-table lbh-table">
           <thead>
             <tr className="govuk-table__row">
-              <th className="govuk-table__header"> </th>
+              <th className="govuk-table__header">Name</th>
               <th className="govuk-table__header">Tenure Type</th>
               <th className="govuk-table__header">Total Balance</th>
             </tr>
@@ -111,7 +111,11 @@ const Tenants = () => {
           total={tenants.total}
           page={page}
           prefix={`${RouteConstants.SEARCH}/${Type}/${search}`}
-          divided={Math.round(tenants.total / 12)}
+          divided={
+            Math.round(tenants.total / 12) > 1
+              ? Math.round(tenants.total / 12)
+              : 1
+          }
         />
       </>
     );
@@ -122,7 +126,8 @@ const Tenants = () => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one">
           <h1>
-            {TextReferences.TextRef.SearchResults}: {Type} for "{search}"
+            {TextReferences.TextRef.SearchResults}: {Type} for &quot;{search}
+            &quot;
           </h1>
           <hr />
         </div>
@@ -134,4 +139,5 @@ const Tenants = () => {
     </>
   );
 };
+
 export default Tenants;

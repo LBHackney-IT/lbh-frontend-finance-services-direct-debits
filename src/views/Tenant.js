@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
+import PropertiesList from "../fragments/PropertiesList";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
 import * as TextReferences from "../references/TextReferences";
-import { getPerson } from "../routes/Api";
-import * as RouteConstants from "../routes/RouteConstants";
+import { getDirectDebits, getPerson } from "../routes/Api";
 import { descriptionList } from "../templates/descriptionListHTML";
 
 const Tenant = () => {
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const Type = params.type ? params.type : "Tenant";
 
   const [searching, setSearching] = useState(false);
   const [tenantData, setTenant] = useState(undefined);
+  const [directDebits, setDirectDebits] = useState(undefined);
+
+  if (directDebits) {
+    console.log(directDebits);
+  }
 
   useEffect(() => {
     const searchCall = async () => {
@@ -26,65 +31,78 @@ const Tenant = () => {
       setSearching(false);
     };
     searchCall();
+
+    const directDebitCall = async () => {
+      const directDebitResponse = await getDirectDebits({
+        TargetId: TenantId,
+      });
+      setDirectDebits(directDebitResponse);
+    };
+    directDebitCall();
   }, [TenantId]);
-
-  if (searching) {
-    return (
-      <>
-        <h1>{TextReferences.Titles.Tenant}</h1>
-        <button
-          onClick={() => history.push(-1)}
-          className="mt-0 govuk-button lbh-button lbh-button-secondary"
-        >
-          {TextReferences.TextRef.Back}
-        </button>
-        <h4>{TextReferences.TextRef.Searching}</h4>
-      </>
-    );
-  }
-
-  if (tenantData === undefined) {
-    return (
-      <>
-        <h1>{TextReferences.Titles.Tenant}</h1>
-        <button
-          onClick={() => history.push(-1)}
-          className="mt-0 govuk-button lbh-button lbh-button-secondary"
-        >
-          {TextReferences.TextRef.Back}
-        </button>
-        <h4>Tenant data could not be found.</h4>
-      </>
-    );
-  }
-
-  if (tenantData === null) {
-    return <h4>{TextReferences.TextRef.NoTenantRecords}</h4>;
-  }
 
   return (
     <>
-      <h1>
-        {TextReferences.Titles.Tenant}: {tenantData.preferredTitle}{" "}
-        {tenantData.preferredFirstName} {tenantData.preferredSurname}
-      </h1>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          {searching && <h1>{TextReferences.Titles.Tenant}</h1>}
+          {!searching && tenantData !== undefined && (
+            <h1>
+              {tenantData.preferredTitle} {tenantData.preferredFirstName}{" "}
+              {tenantData.preferredSurname}
+            </h1>
+          )}
+        </div>
 
-      <Link
-        to={`/${Type}/form/${TenantId}`}
-        className="govuk-button lbh-button mt-0"
-        style={{ marginRight: "10px" }}
-      >
-        {TextReferences.TextRef.Edit}
-      </Link>
+        <div
+          className="govuk-grid-column-one-thirds"
+          style={{ textAlign: "right" }}
+        >
+          <button
+            onClick={() => navigate(-1)}
+            className="mt-0 govuk-button lbh-button lbh-button-secondary"
+          >
+            {TextReferences.TextRef.Back}
+          </button>
+          {tenantData !== undefined ? (
+            <Link
+              to={`/${Type}/form/${TenantId}`}
+              className="govuk-button lbh-button mt-0"
+              style={{ marginLeft: "10px" }}
+            >
+              {TextReferences.TextRef.Edit}
+            </Link>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
 
-      <button
-        onClick={() => history.push(-1)}
-        className="mt-0 govuk-button lbh-button lbh-button-secondary"
-      >
-        {TextReferences.TextRef.Back}
-      </button>
+      <div className="govuk-grid-row">
+        {searching && (
+          <div className="govuk-grid-column-two-thirds">
+            <h4>{TextReferences.TextRef.Searching}</h4>
+          </div>
+        )}
 
-      {tenantData.charges && (
+        {!searching && tenantData === null ? (
+          <div className="govuk-grid-column-two-thirds">
+            <h4>{TextReferences.TextRef.NoTenantRecords}</h4>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {!searching && tenantData === undefined ? (
+          <div className="govuk-grid-column-two-thirds">
+            <h4>{TextReferences.TextRef.NoTenantRecords}</h4>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+
+      {!searching && tenantData !== undefined && tenantData.charges ? (
         <>
           <h2>Financial</h2>
           {descriptionList([
@@ -104,73 +122,26 @@ const Tenant = () => {
             { key: "Housing Benefits", val: "" },
           ])}
         </>
+      ) : (
+        ""
       )}
-      <h2>Tenure</h2>
-      {descriptionList([
-        { key: "Tenure ID", val: tenantData.id },
-        { key: "Tenure Type", val: tenantData.personTypes.join(", ") },
-        {
-          key: "Tenancy Start Date",
-          val: DateFormat(tenantData.startOfTenureDate),
-        },
-        { key: "Date of Birth", val: DateFormat(tenantData.dateOfBirth) },
-      ])}
-      {tenantData.tenures.length && (
+
+      {!searching && tenantData !== undefined ? (
         <>
-          <h2>Properties</h2>
-          <div className="table-wrap">
-            <table className="govuk-table lbh-table">
-              <thead className="govuk-table__head">
-                <tr className="govuk-table__row">
-                  <th className="govuk-table__header">Address</th>
-                  <th className="govuk-table__header">Date</th>
-                  <th className="govuk-table__header">Current Balance</th>
-                  <th className="govuk-table__header">Tenancy Type</th>
-                  <th className="govuk-table__header"> </th>
-                </tr>
-              </thead>
-              <tbody className="govuk-table__body">
-                {tenantData.tenures.map((tenure) => {
-                  return (
-                    <tr className="govuk-table__row" key={tenure.id}>
-                      <td
-                        className="govuk-table__cell"
-                        style={{ maxWidth: "240px", whiteSpace: "pre-wrap" }}
-                      >
-                        <Link
-                          className="lbh-link"
-                          to={`${RouteConstants.PROPERTY}/${tenure.id}`}
-                        >
-                          {tenure.assetFullAddress}
-                        </Link>
-                      </td>
-                      <td className="govuk-table__cell">
-                        {DateFormat(tenure.startDate)} -{" "}
-                        {tenure.endDate
-                          ? DateFormat(tenure.endDate)
-                          : "Current"}
-                      </td>
-                      <td className="govuk-table__cell">{CurrencyFormat()}</td>
-                      <td className="govuk-table__cell">{tenure.type}</td>
-                      <td className="govuk-table__cell">
-                        {tenure.isActive ? (
-                          <Link
-                            className="govuk-button lbh-button lbh-button-sm mt-0"
-                            to={`${RouteConstants.DIRECTDEBIT}/${tenure.id}/create`}
-                          >
-                            {TextReferences.TextRef.AddDirectDebit}
-                          </Link>
-                        ) : (
-                          ""
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+          <h2>Tenure</h2>
+          {descriptionList([
+            { key: "Tenure ID", val: tenantData.id },
+            { key: "Tenure Type", val: tenantData.personTypes.join(", ") },
+            {
+              key: "Tenancy Start Date",
+              val: DateFormat(tenantData.startOfTenureDate),
+            },
+            { key: "Date of Birth", val: DateFormat(tenantData.dateOfBirth) },
+          ])}
+          <PropertiesList data={tenantData} targetId={tenantData.id} />
         </>
+      ) : (
+        ""
       )}
     </>
   );
