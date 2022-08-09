@@ -8,10 +8,7 @@ import "./App.css";
 const App = (): JSX.Element => (
   <Switch>
     <Route exact path="/">
-      <>
-        <h1>Home</h1>
-        <Views.Home />
-      </>
+      <Views.Home />
     </Route>
     <Route path={`${RouteConstants.SEARCH}/:type/:search/:page`}>
       <Views.Search />
