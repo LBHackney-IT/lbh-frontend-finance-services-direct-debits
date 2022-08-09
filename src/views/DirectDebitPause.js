@@ -64,7 +64,20 @@ const DirectDebitPause = () => {
     }
 
     if (data === undefined) {
-      return;
+      return (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            {h1}
+            <h4>{TextReferences.TextRef.NothingFound}</h4>
+          </div>
+          <div
+            className="govuk-grid-column-one-thirds"
+            style={{ textAlign: "right" }}
+          >
+            <p>{back}</p>
+          </div>
+        </div>
+      );
     }
 
     return (
