@@ -7,7 +7,7 @@ import * as TextReferences from "../references/TextReferences";
 import { getDirectDebits, getPerson } from "../routes/Api";
 import { descriptionList } from "../templates/descriptionListHTML";
 
-const Tenant = () => {
+const TenantSingle = () => {
   const params = useParams();
   const history = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
@@ -16,10 +16,6 @@ const Tenant = () => {
   const [searching, setSearching] = useState(false);
   const [tenantData, setTenant] = useState(undefined);
   const [directDebits, setDirectDebits] = useState(undefined);
-
-  if (directDebits) {
-    console.log(directDebits);
-  }
 
   useEffect(() => {
     const searchCall = async () => {
@@ -143,8 +139,14 @@ const Tenant = () => {
       ) : (
         ""
       )}
+
+      {directDebits !== undefined ? (
+        <p>Directe debits found</p>
+      ) : (
+        <p>No direct debits found</p>
+      )}
     </>
   );
 };
 
-export default Tenant;
+export default TenantSingle;

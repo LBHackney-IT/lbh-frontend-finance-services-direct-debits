@@ -7,13 +7,13 @@ import Home from "./Home";
 import Property from "./Property";
 import PropertyForm from "./PropertyForm";
 import Search from "./Search";
-import Tenant from "./Tenant";
 import TenantForm from "./TenantForm";
+import TenantSingle from "./TenantSingle";
 
 export {
   Home,
   Search,
-  Tenant,
+  TenantSingle,
   TenantForm,
   Property,
   PropertyForm,

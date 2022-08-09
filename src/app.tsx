@@ -7,9 +7,10 @@ import "./App.css";
 
 const App = (): JSX.Element => (
   <Switch>
-    <Route exact path="/">
+    <Route exact path={RouteConstants.HOME}>
       <Views.Home />
     </Route>
+
     <Route path={`${RouteConstants.SEARCH}/:type/:search/:page`}>
       <Views.Search />
     </Route>
@@ -17,15 +18,19 @@ const App = (): JSX.Element => (
     <Route path={`${RouteConstants.DIRECTDEBIT}/:id/edit`}>
       <Views.DirectDebitEdit />
     </Route>
+
     <Route path={`${RouteConstants.DIRECTDEBIT}/:id/pause`}>
       <Views.DirectDebitPause />
     </Route>
+
     <Route path={`${RouteConstants.DIRECTDEBIT}/:id/create`}>
       <Views.DirectDebitCreate />
     </Route>
+
     <Route path={`${RouteConstants.DIRECTDEBIT}/:id`}>
       <Views.DirectDebitView />
     </Route>
+
     <Route path={`${RouteConstants.DIRECTDEBIT}`}>
       <Views.DirectDebitList />
     </Route>
@@ -33,21 +38,25 @@ const App = (): JSX.Element => (
     <Route path={`${RouteConstants.PROPERTY}/form/:type`}>
       <Views.PropertyForm />
     </Route>
+
     <Route path={`${RouteConstants.PROPERTY}/form/:type/:id`}>
       <Views.PropertyForm />
     </Route>
+
     <Route path={`${RouteConstants.PROPERTY}/:id`}>
       <Views.Property />
     </Route>
 
-    <Route path=":type/form">
+    <Route path="/:type/form">
       <Views.TenantForm />
     </Route>
-    <Route path=":type/form/:id">
+
+    <Route path="/:type/form/:id">
       <Views.TenantForm />
     </Route>
-    <Route path=":type/:id">
-      <Views.Tenant />
+
+    <Route path="/:type/:id">
+      <Views.TenantSingle />
     </Route>
   </Switch>
 );
