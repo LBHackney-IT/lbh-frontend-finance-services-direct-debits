@@ -9,11 +9,10 @@ import Cookies from "js-cookie";
 // };
 
 const API_URLS = {
-  HOUSING: process.env.REACT_APP_ENV_API_HOUSING,
-  ASSET: process.env.REACT_APP_ENV_API_ASSET,
-  TENURE: process.env.REACT_APP_ENV_API_TENURE,
-  PERSON: process.env.REACT_APP_ENV_API_PERSON,
-  DIRECTDEBIT: process.env.REACT_APP_ENV_API_DIRECT_DEBIT,
+  HOUSING: API_HOUSING,
+  ASSET: API_ASSET,
+  TENURE: API_TENURE,
+  DIRECTDEBIT: API_DIRECT_DEBIT,
 };
 
 const postCall = async (endpoint, url, body) => {
