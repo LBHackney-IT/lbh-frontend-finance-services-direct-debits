@@ -1,5 +1,5 @@
 import React, { useState } from "react"; // useEffect
-import { useNavigate, useParams } from "react-router-dom"; // useNavigate useParams
+import { useHistory, useParams } from "react-router-dom"; // useNavigate useParams
 
 import Form from "../references/Form";
 import * as TextReferences from "../references/TextReferences";
@@ -7,7 +7,7 @@ import { addDirectDebit } from "../routes/Api";
 
 const DirectDebitCreate = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const navigate = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
 
   const [sentResp, setSentResp] = useState(undefined);

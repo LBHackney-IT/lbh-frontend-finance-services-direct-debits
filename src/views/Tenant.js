@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 import PropertiesList from "../fragments/PropertiesList";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
@@ -9,7 +9,7 @@ import { descriptionList } from "../templates/descriptionListHTML";
 
 const Tenant = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const history = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const Type = params.type ? params.type : "Tenant";
 
@@ -59,7 +59,7 @@ const Tenant = () => {
           style={{ textAlign: "right" }}
         >
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => history.goBack()}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
           >
             {TextReferences.TextRef.Back}

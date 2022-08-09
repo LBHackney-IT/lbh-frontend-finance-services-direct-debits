@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom"; // Link
+import { Link, useHistory, useParams } from "react-router-dom"; // Link
 
 import { DataReferences } from "../references/DataReferences";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
@@ -12,7 +12,7 @@ import { TableBodyHTML } from "../templates/Table";
 const DirectDebitView = () => {
   const Ref = "DirectDebitMaintenance";
   const params = useParams();
-  const navigate = useNavigate();
+  const history = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
 
   const [searching, setSearching] = useState(false);
@@ -68,7 +68,7 @@ const DirectDebitView = () => {
   const ddView = () => {
     const back = (
       <button
-        onClick={() => navigate(-1)}
+        onClick={history.goBack}
         className="mt-0 govuk-button lbh-button lbh-button-secondary"
         style={{ marginLeft: "10px" }}
       >
