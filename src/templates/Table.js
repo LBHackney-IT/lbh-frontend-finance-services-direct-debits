@@ -62,6 +62,16 @@ const TableBodyHTML = ({ tableHead, data }) => {
     return (
       <tr className="govuk-table__row" key={bodyKey}>
         {tableHeaders.map((row, key) => {
+          if (row.format === "reference") {
+            return (
+              <td className={`govuk-table__cell${row.classes}`} key={key}>
+                {row.options[val[row.sort]]
+                  ? row.options[val[row.sort]]
+                  : val[row.sort]}
+              </td>
+            );
+          }
+
           if (row.format === "date") {
             return (
               <td className={`govuk-table__cell${row.classes}`} key={key}>

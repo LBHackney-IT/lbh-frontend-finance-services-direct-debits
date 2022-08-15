@@ -111,6 +111,7 @@ const DirectDebitView = () => {
     }
 
     const result = directDebits.results[0];
+    const statusOptions = ["Cancelled", "Paused"];
 
     return (
       <>
@@ -123,7 +124,7 @@ const DirectDebitView = () => {
             style={{ textAlign: "right" }}
           >
             <p>
-              {result.status !== "Cancelled" && (
+              {!statusOptions.includes(result.status) && (
                 <Link
                   to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/pause`}
                   className="govuk-button lbh-button mt-0"
@@ -132,7 +133,7 @@ const DirectDebitView = () => {
                 </Link>
               )}
 
-              {result.status !== "Cancelled" && (
+              {!statusOptions.includes(result.status) && (
                 <Link
                   to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/edit`}
                   className="govuk-button lbh-button mt-0"

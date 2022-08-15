@@ -1,3 +1,5 @@
+import { CollectionDates } from "./TextReferences";
+
 const DataReferences = {
   ReportSuspenseAccounts: [
     { title: "Reference", sort: "rentReference", classes: "", format: "" },
@@ -32,7 +34,7 @@ const DataReferences = {
     },
     { title: "Fixed", sort: "fixedAmount", classes: "", format: "currency" },
     {
-      title: "",
+      title: " ",
       sort: "targetId",
       classes: "",
       format: "link",
@@ -57,7 +59,8 @@ const DataReferences = {
       title: "New Preferred Date",
       sort: "newPreferredDate",
       classes: "",
-      format: "date",
+      format: "reference",
+      options: CollectionDates,
     },
     { title: "New Status", sort: "newStatus", classes: "", format: "" },
     { title: "Pause Duration", sort: "pauseDuration", classes: "", format: "" },
@@ -77,7 +80,7 @@ const DataReferences = {
       title: "Previous Preferred Date",
       sort: "previousPreferredDate",
       classes: "",
-      format: "date",
+      format: "",
     },
     {
       title: "Previous Status",
