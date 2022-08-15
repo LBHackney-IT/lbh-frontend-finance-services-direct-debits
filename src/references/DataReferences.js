@@ -80,7 +80,8 @@ const DataReferences = {
       title: "Previous Preferred Date",
       sort: "previousPreferredDate",
       classes: "",
-      format: "",
+      format: "reference",
+      options: CollectionDates,
     },
     {
       title: "Previous Status",
