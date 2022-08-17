@@ -168,7 +168,7 @@ const DirectDebitList = () => {
                               }`}
                               className="govuk-button lbh-button lbh-button-sm mt-0"
                               title={directDebit[record.sort]}
-                              data-cy="directDebit-list-to-single-link"
+                              data-cy={`directDebit-list-to-single-link-${directDebit[record.sort]}`}
                             >
                               {record.linkText ?? directDebit[record.sort]}
                             </Link>
@@ -180,11 +180,8 @@ const DirectDebitList = () => {
                     <td className="govuk-table__cell">
                       {directDebit.directDebitMaintenance.length ? (
                         <button
-                          className={`lbh-link arrow${
-                            [...toggle].includes(directDebit.id)
-                              ? " active"
-                              : ""
-                          }`}
+                          className='lbh-link'
+                          data-cy={`directDebit-list-maintenance-toggle-${directDebit[record.sort]}`}
                           onClick={() => {
                             const ids = [...toggle];
                             if (ids.includes(directDebit.id)) {
@@ -194,18 +191,7 @@ const DirectDebitList = () => {
                             }
                             setToggle(ids);
                           }}
-                        >
-                          <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            strokeWidth="0"
-                            viewBox="0 0 512 512"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M256 294.1L383 167c9.4-9.4 24.6-9.4 33.9 0s9.3 24.6 0 34L273 345c-9.1 9.1-23.7 9.3-33.1.7L95 201.1c-4.7-4.7-7-10.9-7-17s2.3-12.3 7-17c9.4-9.4 24.6-9.4 33.9 0l127.1 127z" />
-                          </svg>
+                        >{([...toggle].includes(directDebit.id) ? 'Hide' : 'Show' )}
                         </button>
                       ) : (
                         ""
@@ -277,8 +263,9 @@ const DirectDebitList = () => {
           <button
             onClick={() => setExportForm(!exportForm)}
             className="govuk-button lbh-button mt-0"
+            data-cy="directDebit-exportForm-toggle"
           >
-            {exportForm ? "Hide" : "Show"} Export Form
+            {exportForm ? "Hide" : "Show"} Export
           </button>
         </div>
       </div>
