@@ -76,7 +76,7 @@ const Tenants = () => {
                     <td className="govuk-table__cell">
                       <Link
                         className="lbh-link"
-                        data-cy="tenant-search-to-single-link"
+                        data-cy={`tenant-search-to-single-link-${tenant.id}`}
                         to={`/${Type}/${tenant.id}`}
                       >
                         <strong>

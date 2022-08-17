@@ -62,7 +62,7 @@ const DirectDebitList = (params) => {
                       title="View Direct Debit"
                       role="button"
                       aria-label="View Direct Debit"
-                      data-cy="directDebit-sublist-to-single-directDebit"
+                      data-cy={`directDebit-sublist-to-single-directDebit-${dd.targetId}`}
                     >
                       View Direct Debit
                     </Link>
