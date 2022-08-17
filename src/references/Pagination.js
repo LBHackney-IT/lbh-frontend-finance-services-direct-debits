@@ -22,8 +22,8 @@ const Pagination = (params) => {
                 key={`pagination_${num}`}
                 className={`page-item${num === page ? " active" : ""}`}
               >
-                <Link 
-                  className="page-link" 
+                <Link
+                  className="page-link"
                   to={`${prefix}/${num}`}
                   data-cy={`pagination-${prefix}-${num}`}
                 >
