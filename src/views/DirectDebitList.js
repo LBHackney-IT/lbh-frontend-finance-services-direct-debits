@@ -168,7 +168,9 @@ const DirectDebitList = () => {
                               }`}
                               className="govuk-button lbh-button lbh-button-sm mt-0"
                               title={directDebit[record.sort]}
-                              data-cy={`directDebit-list-to-single-link-${directDebit[record.sort]}`}
+                              data-cy={`directDebit-list-to-single-link-${
+                                directDebit[record.sort]
+                              }`}
                             >
                               {record.linkText ?? directDebit[record.sort]}
                             </Link>
@@ -180,8 +182,8 @@ const DirectDebitList = () => {
                     <td className="govuk-table__cell">
                       {directDebit.directDebitMaintenance.length ? (
                         <button
-                          className='lbh-link'
-                          data-cy={`directDebit-list-maintenance-toggle-${directDebit[record.sort]}`}
+                          className="lbh-link"
+                          data-cy={`directDebit-list-maintenance-toggle-${directDebit.id}`}
                           onClick={() => {
                             const ids = [...toggle];
                             if (ids.includes(directDebit.id)) {
@@ -191,7 +193,10 @@ const DirectDebitList = () => {
                             }
                             setToggle(ids);
                           }}
-                        >{([...toggle].includes(directDebit.id) ? 'Hide' : 'Show' )}
+                        >
+                          {[...toggle].includes(directDebit.id)
+                            ? "Hide"
+                            : "Show"}
                         </button>
                       ) : (
                         ""
