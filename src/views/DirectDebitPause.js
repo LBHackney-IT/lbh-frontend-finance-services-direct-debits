@@ -41,6 +41,7 @@ const DirectDebitPause = () => {
       <Link
         to={`${RouteConstants.DIRECTDEBIT}/${TenantId}`}
         className="govuk-button lbh-button mt-0"
+        data-cy="directDebitPause-back-link"
       >
         {TextReferences.TextRef.Back}
       </Link>

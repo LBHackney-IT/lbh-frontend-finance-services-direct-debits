@@ -128,6 +128,7 @@ const DirectDebitView = () => {
                 <Link
                   to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/pause`}
                   className="govuk-button lbh-button mt-0"
+                  data-cy="directDebit-to-pause-link"
                 >
                   {result.isPaused ? "Unpause" : "Pause"}
                 </Link>
@@ -137,6 +138,7 @@ const DirectDebitView = () => {
                 <Link
                   to={`${RouteConstants.DIRECTDEBIT}/${TenantId}/edit`}
                   className="govuk-button lbh-button mt-0"
+                  data-cy="directDebit-to-edit-link"
                   style={{ marginLeft: "10px" }}
                 >
                   Edit

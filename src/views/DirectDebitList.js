@@ -168,6 +168,7 @@ const DirectDebitList = () => {
                               }`}
                               className="govuk-button lbh-button lbh-button-sm mt-0"
                               title={directDebit[record.sort]}
+                              data-cy="directDebit-list-to-single-link"
                             >
                               {record.linkText ?? directDebit[record.sort]}
                             </Link>

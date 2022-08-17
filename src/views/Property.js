@@ -84,6 +84,7 @@ const Property = () => {
                       className="lbh-link"
                       aria-label="Tenant ID"
                       to={`${RouteConstants.TENANT}/${tenant.id}`}
+                      data-cy="propertyList-to-single-link"
                     >
                       {tenant.preferredTitle
                         ? tenant.preferredTitle
@@ -112,6 +113,7 @@ const Property = () => {
                       to={`${RouteConstants.DIRECTDEBIT}/${tenant.id}/create`}
                       className="govuk-button lbh-button lbh-button-sm mt-0"
                       title={TextReferences.TextRef.AddDirectDebit}
+                      data-cy="propertyList-to-directDebitCreate-link"
                     >
                       {TextReferences.TextRef.AddDirectDebit}
                     </Link>

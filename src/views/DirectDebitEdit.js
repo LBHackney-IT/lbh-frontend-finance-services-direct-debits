@@ -51,6 +51,7 @@ const DirectDebitEdit = () => {
         to={`${RouteConstants.DIRECTDEBIT}/${TenantId}`}
         className="govuk-button lbh-button lbh-button-secondary"
         style={{ marginTop: 0 }}
+        data-cy="directDebit-edit-back-link"
       >
         {TextReferences.TextRef.Back}
       </Link>
