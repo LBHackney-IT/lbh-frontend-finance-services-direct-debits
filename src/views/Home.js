@@ -42,6 +42,7 @@ const Home = () => {
                 value={searchType}
                 onChange={(e) => setSearchType(e.target.value)}
                 className="govuk-select lbh-select"
+                data-cy="search-form-select-type-field"
                 style={{ width: "200px" }}
               >
                 {searchOptions.map((opt) => {
@@ -57,6 +58,7 @@ const Home = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="govuk-input lbh-input govuk-input--width-10"
                   style={{ width: "360px" }}
+                  data-cy="search-form-input-field"
                   name="propSearchInput"
                   value={searchTerm}
                   placeholder={TextReferences.TextRef.Placeholder}
@@ -65,6 +67,7 @@ const Home = () => {
                 <button
                   onClick={() => runSearch()}
                   className="lbh-search-box__action"
+                  data-cy="search-form-submit-button"
                 >
                   <span className="govuk-visually-hidden">
                     {TextReferences.TextRef.Search}
@@ -82,6 +85,7 @@ const Home = () => {
           <Link
             to={RouteConstants.DIRECTDEBIT}
             className="mt-0 govuk-button lbh-button"
+            data-cy="direct-debit-home-to-list-screen"
           >
             {TextReferences.Titles.DirectDebits}
           </Link>
