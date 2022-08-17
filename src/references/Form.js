@@ -92,7 +92,11 @@ const Form = (params) => {
           {field.field === "title" && <h4>{field.text}</h4>}
 
           {field.label && (
-            <label className="govuk-label lbh-label" htmlFor={id} data-cy={`${field.dataCy}_label`} >
+            <label
+              className="govuk-label lbh-label"
+              htmlFor={id}
+              data-cy={`${field.dataCy}_label`}
+            >
               {field.label}
             </label>
           )}
