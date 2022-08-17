@@ -49,6 +49,7 @@ const PropertiesList = (params) => {
                       <Link
                         className="lbh-link"
                         to={`${RouteConstants.PROPERTY}/${tenure.id}`}
+                        data-cy="tenant-single-to-property-link"
                         role="button"
                         type="button"
                         aria-label={tenure.assetFullAddress}
@@ -69,6 +70,7 @@ const PropertiesList = (params) => {
                       {tenure.isActive ? (
                         <Link
                           className="govuk-button lbh-button lbh-button-sm mt-0"
+                          data-cy="tenant-single-to-direct-debit-create-link"
                           to={`${RouteConstants.DIRECTDEBIT}/${targetId}/create`}
                           role="button"
                           type="button"

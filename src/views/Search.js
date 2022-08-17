@@ -74,7 +74,7 @@ const Tenants = () => {
                 <Fragment key={tenant.id}>
                   <tr className={`govuk-table__row ${tenant.id}`}>
                     <td className="govuk-table__cell">
-                      <Link className="lbh-link" to={`/${Type}/${tenant.id}`}>
+                      <Link className="lbh-link" data-cy="tenant-search-to-single-link" to={`/${Type}/${tenant.id}`}>
                         <strong>
                           {tenant.title} {tenant.preferredFirstname}{" "}
                           {tenant.preferredSurname}

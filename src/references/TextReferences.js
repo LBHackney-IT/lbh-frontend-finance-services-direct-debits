@@ -57,6 +57,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "accountHolder",
       label: "Name(s) of account holder(s)",
+      dataCy: 'directDebitForm-accountHolder-input' 
     },
     {
       field: "input",
@@ -64,6 +65,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "bankAccountNumber",
       label: "Bank / building society account number",
+      dataCy: 'directDebitForm-bankAccountNumber-input' 
     },
     {
       field: "input",
@@ -71,6 +73,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "branchSortCode",
       label: "Branch sort code",
+      dataCy: 'directDebitForm-branchSortCode-input'
     },
   ],
   [
@@ -80,6 +83,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "serviceUserNumber",
       label: "Service user number",
+      dataCy: 'directDebitForm-serviceUserNumber-input'
     },
   ],
   [
@@ -89,6 +93,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "reference",
       label: "Payment Reference",
+      dataCy: 'directDebitForm-reference-input'
     },
   ],
   [
@@ -99,6 +104,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "bankOrBuildingSocietyTo",
       label: "To",
+      dataCy: 'directDebitForm-bankOrBuildingSocietyTo-input' 
     },
     {
       field: "input",
@@ -106,6 +112,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "bankOrBuildingSocietyName",
       label: "Building society name",
+      dataCy: 'directDebitForm-bankOrBuildingSocietyName-input' 
     },
     {
       field: "input",
@@ -113,18 +120,21 @@ const DirectDebitFormFields = [
       type: "text",
       name: "bankOrBuildingSocietyAddress1",
       label: "Address",
+      dataCy: 'directDebitForm-bankOrBuildingSocietyAddress1-input' 
     },
     {
       field: "input",
       required: true,
       type: "text",
       name: "bankOrBuildingSocietyAddress2",
+      dataCy: 'directDebitForm-bankOrBuildingSocietyAddress2-input' 
     },
     {
       field: "input",
       required: true,
       type: "text",
       name: "bankOrBuildingSocietyAddress3",
+      dataCy: 'directDebitForm-bankOrBuildingSocietyAddress3-input' 
     },
     {
       field: "input",
@@ -132,6 +142,7 @@ const DirectDebitFormFields = [
       type: "text",
       name: "bankOrBuildingSocietyPostcode",
       label: "Postcode",
+      dataCy: 'directDebitForm-bankOrBuildingSocietyPostcode-input'
     },
   ],
   [
@@ -142,6 +153,7 @@ const DirectDebitFormFields = [
       type: "number",
       name: "additionalAmount",
       label: "Additional amount (for arrears collection)",
+      dataCy: 'directDebitForm-additionalAmount-input' 
     },
     {
       field: "input",
@@ -149,12 +161,14 @@ const DirectDebitFormFields = [
       type: "number",
       name: "overrideAmount",
       label: "Override amount",
+      dataCy: 'directDebitForm-overrideAmount-input' 
     },
     {
       field: "datepicker",
       required: true,
       name: "firstPaymentDate",
       label: "First Payment Date",
+      dataCy: 'directDebitForm-firstPaymentDate-datepicker' 
     },
     {
       field: "select",
@@ -167,9 +181,14 @@ const DirectDebitFormFields = [
       ],
       name: "preferredDate",
       label: "Preferred date (optional)",
+      dataCy: 'directDebitForm-preferredDate-select'
     },
   ],
-  [{ field: "submit", text: "Generate Direct Debit form for resident" }],
+  [{ 
+      field: "submit", 
+      text: "Generate Direct Debit form for resident",
+      dataCy: 'directDebitForm-submit'
+  }],
 ];
 
 const DirectDebitEditFormFields = [
@@ -180,6 +199,7 @@ const DirectDebitEditFormFields = [
       type: "number",
       name: "additionalAmount",
       label: "Additional Amount",
+      dataCy: 'directDebitEditForm-additionalAmount-input',
     },
     {
       field: "input",
@@ -187,6 +207,7 @@ const DirectDebitEditFormFields = [
       type: "number",
       name: "fixedAmount",
       label: "Fixed Amount",
+      dataCy: 'directDebitEditForm-fixedAmount-input',
     },
     {
       field: "select",
@@ -199,6 +220,7 @@ const DirectDebitEditFormFields = [
       ],
       name: "preferredDate",
       label: "Preferred date (optional)",
+      dataCy: 'directDebitEditForm-preferredDate-select',
     },
     {
       field: "input",
@@ -206,9 +228,14 @@ const DirectDebitEditFormFields = [
       type: "text",
       name: "reason",
       label: "Reason",
+      dataCy: 'directDebitEditForm-reason-input',
     },
   ],
-  [{ field: "submit", text: "Update Direct Debit" }],
+  [{ 
+    field: "submit", 
+    text: "Update Direct Debit",
+    dataCy: 'directDebitEditForm-submit'
+  }],
 ];
 
 const DirectDebitPauseFormFields = [
@@ -220,6 +247,7 @@ const DirectDebitPauseFormFields = [
       name: "status",
       label: "Status",
       disabled: true,
+      dataCy: 'directDebitPauseForm-status-input'
     },
     {
       field: "input",
@@ -227,6 +255,7 @@ const DirectDebitPauseFormFields = [
       type: "number",
       name: "pauseDuration",
       label: "Pause Duration (months)",
+      dataCy: 'directDebitPauseForm-pauseDuration-input'
     },
     {
       field: "input",
@@ -234,9 +263,14 @@ const DirectDebitPauseFormFields = [
       type: "text",
       name: "reason",
       label: "Reason",
+      dataCy: 'directDebitPauseForm-reason-input'
     },
   ],
-  [{ field: "submit", text: "Update Direct Debit" }],
+  [{ 
+    field: "submit", 
+    text: "Update Direct Debit",
+    dataCy: 'directDebitPauseForm-submit'
+  }],
 ];
 
 const TenantFormFields = [
@@ -248,6 +282,7 @@ const TenantFormFields = [
       type: "text",
       name: "title",
       label: "Title",
+      dataCy: 'tenantForm-title-input'
     },
     {
       field: "input",
@@ -255,6 +290,7 @@ const TenantFormFields = [
       type: "text",
       name: "firstName",
       label: "First Name",
+      dataCy: 'tenantForm-firstName-input'
     },
     {
       field: "input",
@@ -262,12 +298,14 @@ const TenantFormFields = [
       type: "text",
       name: "surname",
       label: "Surname",
+      dataCy: 'tenantForm-surname-input'
     },
     {
       field: "datepicker",
       required: true,
       name: "dateOfBirth",
       label: "Date of Birth",
+      dataCy: 'tenantForm-dateOfBirth-datepicker'
     },
   ],
   [
@@ -278,6 +316,7 @@ const TenantFormFields = [
       type: "text",
       name: "preferredTitle",
       label: "Preferred Title",
+      dataCy: 'tenantForm-preferredTitle-input'
     },
     {
       field: "input",
@@ -285,6 +324,7 @@ const TenantFormFields = [
       type: "text",
       name: "preferredFirstName",
       label: "Preferred First Name",
+      dataCy: 'tenantForm-preferredFirstName-input'
     },
     {
       field: "input",
@@ -292,6 +332,7 @@ const TenantFormFields = [
       type: "text",
       name: "preferredMiddleName",
       label: "Preferred Middle Name",
+      dataCy: 'tenantForm-preferredMiddleName-input'
     },
     {
       field: "input",
@@ -299,6 +340,7 @@ const TenantFormFields = [
       type: "text",
       name: "preferredSurname",
       label: "Preferred Surname",
+      dataCy: 'tenantFormpreferredSurname-input'
     },
   ],
   [
@@ -309,17 +351,24 @@ const TenantFormFields = [
       type: "text",
       name: "reason",
       label: "Reason",
+      dataCy: 'tenantForm-reason-input'
     },
   ],
-  [{ field: "submit", text: "Create Tenant" }],
+  [{ field: "submit", text: "Create Tenant", dataCy: 'tenantForm-submit' }],
 ];
 
 const CollectionDates = {
-  1: "1st of the month",
-  8: "8th of the month",
-  16: "16th of the month",
-  25: "25th of the month",
+  1: '1st of the month', 
+  8: '8th of the month', 
+  16: '16th of the month', 
+  25: '25th of the month'
 };
+const CollectionDatesArray = [
+  [1, '1st of the month'], 
+  [8, '8th of the month'], 
+  [16, '16th of the month'], 
+  [25, '25th of the month']
+];
 
 export {
   Titles,
@@ -330,4 +379,5 @@ export {
   DirectDebitPauseFormFields,
   TenantFormFields,
   CollectionDates,
+  CollectionDatesArray,
 };

@@ -92,7 +92,7 @@ const Form = (params) => {
           {field.field === "title" && <h4>{field.text}</h4>}
 
           {field.label && (
-            <label className="govuk-label lbh-label" htmlFor={id}>
+            <label className="govuk-label lbh-label" htmlFor={id} data-cy={`${field.dataCy}_label`} >
               {field.label}
             </label>
           )}
@@ -109,6 +109,7 @@ const Form = (params) => {
               name={field.name}
               type={field.type}
               required={field.required}
+              data-cy={field.dataCy}
               aria-describedby="input-with-error-message-hint input-with-error-message-error"
             />
           )}
@@ -132,6 +133,7 @@ const Form = (params) => {
               id={id}
               name={field.name}
               required={field.required}
+              data-cy={field.dataCy}
               aria-describedby="input-with-error-message-hint input-with-error-message-error"
             >
               <option value="">Please Select</option>

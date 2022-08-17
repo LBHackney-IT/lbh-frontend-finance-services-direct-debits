@@ -57,6 +57,7 @@ const TenantSingle = () => {
           <button
             onClick={() => history.goBack()}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
+            data-cy="tenant-single-to-back-link"
           >
             {TextReferences.TextRef.Back}
           </button>
@@ -64,6 +65,7 @@ const TenantSingle = () => {
             <Link
               to={`/${Type}/form/${TenantId}`}
               className="govuk-button lbh-button mt-0"
+              data-cy="tenant-single-to-edit-link"
               style={{ marginLeft: "10px" }}
             >
               {TextReferences.TextRef.Edit}
