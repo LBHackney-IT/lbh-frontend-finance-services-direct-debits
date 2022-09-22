@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { searchIcon } from "../references/Functions";
 import * as RouteConstants from "../references/RouteConstants";
 import * as TextReferences from "../references/TextReferences";
 
 const Home = () => {
-  const navigate = useNavigate();
+  const navigate = useLocation();
   const Ref = "HousingSearch";
   const searchOptions = TextReferences[Ref];
   const [searchType, setSearchType] = useState(searchOptions[0].value);

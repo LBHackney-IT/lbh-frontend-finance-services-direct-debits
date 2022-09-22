@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import DirectDebitList from "../fragments/DirectDebitList";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
@@ -10,7 +10,7 @@ import { descriptionList } from "../templates/descriptionListHTML";
 
 const Property = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const navigate = useLocation();
   const PropertyId = params.id ? decodeURIComponent(params.id) : "";
   const [searching, setSearching] = useState(false);
   const [property, setProperty] = useState(undefined);

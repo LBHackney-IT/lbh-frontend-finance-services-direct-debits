@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom"; // useNavigate
+import { useParams } from "react-router-dom";
 
 import Form from "../references/Form";
 import * as TextReferences from "../references/TextReferences";
@@ -8,7 +8,6 @@ import * as Create from "../services/Create";
 const PropertyForm = () => {
   const params = useParams();
   const type = params.type ? decodeURIComponent(params.type) : "Tenant";
-  // const id = params.id ? decodeURIComponent(params.id) : ''
 
   const [data, setData] = useState({
     title: "",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import DirectDebitList from "../fragments/DirectDebitList";
 import PropertiesList from "../fragments/PropertiesList";
@@ -10,7 +10,7 @@ import { descriptionList } from "../templates/descriptionListHTML";
 
 const Tenant = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const navigate = useLocation();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const Type = params.type ? params.type : "Tenant";
 

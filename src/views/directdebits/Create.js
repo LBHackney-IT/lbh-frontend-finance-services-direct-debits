@@ -1,5 +1,5 @@
-import React, { useState } from "react"; // useEffect
-import { useNavigate, useParams } from "react-router-dom"; // useNavigate useParams
+import React, { useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 import Form from "../../references/Form";
 import * as TextReferences from "../../references/TextReferences";
@@ -7,7 +7,7 @@ import * as Create from "../../services/Create";
 
 const DirectDebitCreate = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const navigate = useLocation();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const PaymentRef = params.prn ? decodeURIComponent(params.prn) : "";
 

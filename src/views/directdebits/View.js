@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom"; // Link
+import { Link, useLocation, useParams } from "react-router-dom"; // Link
 
 import PropertiesList from "../../fragments/PropertiesList";
 import TenantsList from "../../fragments/TenantsList";
@@ -93,7 +93,7 @@ const DirectDebitMaintenance = (params) => {
 
 const DirectDebitView = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const navigate = useLocation();
   const id = params.id ? decodeURIComponent(params.id) : "";
 
   const [searching, setSearching] = useState(true);
