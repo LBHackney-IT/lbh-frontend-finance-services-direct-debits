@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Form from "../../references/Form";
 import * as TextReferences from "../../references/TextReferences";
