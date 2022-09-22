@@ -43,7 +43,7 @@ const DirectDebitCreate = () => {
   };
 
   if (sentResp !== undefined && sentResp.id) {
-    navigate(-1);
+    history.push(-1);
   }
 
   if (sentResp !== undefined && sentResp.errors) {

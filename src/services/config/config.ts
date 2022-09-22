@@ -8,13 +8,23 @@
 // }
 
 export const config = {
-  financeDetailsApiUrl: "https://auth.hackney.gov.uk/auth?redirect_uri=",
-  REACT_APP_AUTH_URL: "https://auth.hackney.gov.uk/auth?redirect_uri=",
-  REACT_APP_API_KEY: "Jne1LB5BWE3Lnlh4EHLM7xGANmM8jvq7QBxACiX1",
-  REACT_APP_ENV_DEVELOPMENT:
-    "https://prmbiqp252.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-  REACT_APP_ENV_STAGING:
-    "https://wk623vt63g.execute-api.eu-west-2.amazonaws.com/staging/api/v1",
-  REACT_APP_ENV_PRODUCTION:
-    "https://ebedbh115d.execute-api.eu-west-2.amazonaws.com/production/api/v1",
+  REACT_APP_ENV_DIRECT_DEBIT_DEVELOPMENT: 'https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/development',
+  REACT_APP_ENV_DIRECT_DEBIT_STAGING: 'https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/staging',
+  REACT_APP_ENV_DIRECT_DEBIT_PRODUCTION: 'https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/production',
+  
+  REACT_APP_ENV_HOUSING_DEVELOPMENT: 'https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/development',
+  REACT_APP_ENV_HOUSING_STAGING: 'https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/staging',
+  REACT_APP_ENV_HOUSING_PRODUCTION: 'https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/production',
+  
+  REACT_APP_ENV_ASSET_DEVELOPMENT: 'https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development',
+  REACT_APP_ENV_ASSET_STAGING: 'https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/staging',
+  REACT_APP_ENV_ASSET_PRODUCTION: 'https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/production',
+  
+  REACT_APP_ENV_TENURE_DEVELOPMENT: 'https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development',
+  REACT_APP_ENV_TENURE_STAGING: 'https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/staging',
+  REACT_APP_ENV_TENURE_PRODUCTION: 'https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/production',
+  
+  REACT_APP_ENV_PERSON_DEVELOPMENT: 'https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development',
+  REACT_APP_ENV_PERSON_STAGING: 'https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/staging',
+  REACT_APP_ENV_PERSON_PRODUCTION: 'https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/production',
 };
