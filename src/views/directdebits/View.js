@@ -154,11 +154,7 @@ const DirectDebitView = () => {
     );
   }
 
-  if (directDebit === undefined) {
-    return;
-  }
-
-  if (directDebit === null) {
+  if (directDebit === undefined || directDebit === null) {
     return (
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
