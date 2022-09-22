@@ -1,18 +1,26 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import { DataReferences } from "../references/DataReferences";
-import { CurrencyFormat } from "../references/Functions";
-import Pagination from "../references/Pagination";
-import * as TextReferences from "../references/TextReferences";
-import { getDirectDebits } from "../routes/Api";
-import { TableBodyHTML } from "../templates/Table";
+import { DataReferences } from "../../references/DataReferences";
+import { CurrencyFormat } from "../../references/Functions";
+import Pagination from "../../references/Pagination";
+import * as RouteContents from "../../references/RouteConstants";
+import * as TextReferences from "../../references/TextReferences";
+import * as Read from "../../services/Read";
+import { TableBodyHTML } from "../../templates/Table";
 
 const DirectDebitList = () => {
-  const [searching, setSearching] = useState(false);
+  const params = useParams();
+  const pagination = params.pagination
+    ? decodeURIComponent(params.pagination)
+    : 1;
+
   const [toggle, setToggle] = useState([]);
+  // const [page, setPage] = useState(1)
+  const [searching, setSearching] = useState(false);
   const [exportForm, setExportForm] = useState(false);
   const [exportFile, setExportFile] = useState({ type: "csv", date: 1 });
+  const [filterForm, setFilterForm] = useState({ date: 1 });
   const [directDebits, setDirectDebits] = useState(undefined);
   const Ref = "DirectDebitList";
   const DataRows = DataReferences[Ref];
@@ -20,14 +28,15 @@ const DirectDebitList = () => {
   useEffect(() => {
     const searchCall = async () => {
       setSearching(true);
-      const call = await getDirectDebits({
+      const call = await Read.DirectDebits({
         TargetId: "",
+        currentPage: pagination,
       });
       setDirectDebits(call);
       setSearching(false);
     };
     searchCall();
-  }, []);
+  }, [pagination]);
 
   const exportHTMLForm = () => {
     return (
@@ -64,10 +73,13 @@ const DirectDebitList = () => {
                 setExportFile({ ...exportFile, type: e.target.value })
               }
             >
-              <option value="1">1st of the Month</option>
-              <option value="8">8th of the Month</option>
-              <option value="16">16th of the Month</option>
-              <option value="25">25th of the Month</option>
+              {TextReferences.CollectionDatesArray.map((val) => {
+                return (
+                  <option value={val[0]} key={val[0]}>
+                    {val[1]}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -84,7 +96,7 @@ const DirectDebitList = () => {
     );
   };
 
-  const directDebitFilter = () => {
+  const directDebitExport = () => {
     const totalRecords =
       directDebits !== undefined && directDebits !== null && !searching
         ? directDebits.totalCount
@@ -124,6 +136,38 @@ const DirectDebitList = () => {
     );
   };
 
+  const directDebitFilter = () => {
+    return (
+      <div className="background_EEE">
+        <div className="d-flex">
+          <div>
+            <h3>Filter</h3>
+          </div>
+          <div>
+            <label forhtml="filterDate">Date</label>
+            <select
+              className="govuk-input lbh-input w-100 mt-2 govuk-input--standard"
+              name="filterDate"
+              value={filterForm.date}
+              onChange={(e) =>
+                setFilterForm({ ...filterForm, date: e.target.value })
+              }
+              data-cy="directDebitFilter-date-select"
+            >
+              {TextReferences.CollectionDatesArray.map((val) => {
+                return (
+                  <option value={val[0]} key={val[0]}>
+                    {val[1]}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const directDebitView = () => {
     if (searching) {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
@@ -159,11 +203,13 @@ const DirectDebitList = () => {
                       return (
                         <td className="govuk-table__cell" key={tdKey}>
                           {record.format === "" && directDebit[record.sort]}
+
                           {record.format === "currency" &&
                             CurrencyFormat(directDebit[record.sort])}
+
                           {record.format === "link" && (
                             <Link
-                              to={`/${record.linkPrefix}${
+                              to={`${record.linkPrefix}/${
                                 directDebit[record.sort]
                               }`}
                               className="govuk-button lbh-button lbh-button-sm mt-0"
@@ -178,7 +224,6 @@ const DirectDebitList = () => {
                         </td>
                       );
                     })}
-
                     <td className="govuk-table__cell">
                       {directDebit.directDebitMaintenance.length ? (
                         <button
@@ -245,6 +290,7 @@ const DirectDebitList = () => {
             })}
           </tbody>
         </table>
+
         <Pagination
           total={directDebits.totalCount}
           page={directDebits.currentPage}
@@ -265,15 +311,25 @@ const DirectDebitList = () => {
           className="govuk-grid-column-one-third"
           style={{ textAlign: "right" }}
         >
+          <Link
+            to={`${RouteContents.DIRECTDEBIT}${RouteContents.MANUALSUBMIT}`}
+            className="govuk-button lbh-button lbh-button-md mt-0"
+            style={{ marginRight: "10px" }}
+            title="Manual Submit"
+            data-cy="directDebit-to-manualsubmission-link"
+          >
+            Manual Submit
+          </Link>
           <button
             onClick={() => setExportForm(!exportForm)}
-            className="govuk-button lbh-button mt-0"
+            className="govuk-button lbh-button lbh-button-md mt-0"
             data-cy="directDebit-exportForm-toggle"
           >
             {exportForm ? "Hide" : "Show"} Export
           </button>
         </div>
       </div>
+      {directDebitExport()}
       {directDebitFilter()}
       {directDebitView()}
     </>

@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom"; // useNavigate
 
 import Form from "../references/Form";
 import * as TextReferences from "../references/TextReferences";
-import { getPerson, postPerson } from "../routes/Api";
+import * as Create from "../services/Create";
+import * as Read from "../services/Read";
 
 const TenantForm = () => {
   const params = useParams();
@@ -29,7 +30,7 @@ const TenantForm = () => {
   useEffect(() => {
     const searchCall = async () => {
       setSearching(true);
-      const response = await getPerson({
+      const response = await Read.Person({
         id: TenantId,
       });
       setData(response);
@@ -43,7 +44,7 @@ const TenantForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // console.log(data)
-    const post = await postPerson(data);
+    const post = await Create.postPerson(data);
     console.log(post);
   };
 

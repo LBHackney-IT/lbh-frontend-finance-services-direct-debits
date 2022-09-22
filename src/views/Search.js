@@ -3,9 +3,9 @@ import { Link, useParams } from "react-router-dom";
 
 import { CurrencyFormat } from "../references/Functions";
 import Pagination from "../references/Pagination";
+import * as RouteConstants from "../references/RouteConstants";
 import * as TextReferences from "../references/TextReferences";
-import { getHousingSearchTenant } from "../routes/Api";
-import * as RouteConstants from "../routes/RouteConstants";
+import * as Read from "../services/Read";
 
 const Tenants = () => {
   const Ref = "HousingSearch";
@@ -26,7 +26,7 @@ const Tenants = () => {
           personType = key;
         }
       });
-      const getTenants = await getHousingSearchTenant({
+      const getTenants = await Read.HousingSearchTenant({
         personType,
         page,
         search,

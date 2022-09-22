@@ -1,6 +1,7 @@
+import * as RouteContents from "./RouteConstants";
 import { CollectionDates } from "./TextReferences";
 
-const DataReferences = {
+export const DataReferences = {
   ReportSuspenseAccounts: [
     { title: "Reference", sort: "rentReference", classes: "", format: "" },
     {
@@ -35,11 +36,12 @@ const DataReferences = {
     { title: "Fixed", sort: "fixedAmount", classes: "", format: "currency" },
     {
       title: " ",
-      sort: "targetId",
+      sort: "id",
       classes: "",
       format: "link",
-      linkPrefix: "direct-debit/",
+      linkPrefix: RouteContents.DIRECTDEBITSINGLE,
       linkText: "View Direct Debit",
+      dataCy: "direct-debit-list-to-single-link",
     },
   ],
   DirectDebitMaintenance: [
@@ -92,4 +94,3 @@ const DataReferences = {
     { title: "Reason", sort: "reason", classes: "", format: "" },
   ],
 };
-export { DataReferences };

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { searchIcon } from "../references/Functions";
+import * as RouteConstants from "../references/RouteConstants";
 import * as TextReferences from "../references/TextReferences";
-import * as RouteConstants from "../routes/RouteConstants";
-// import IntroText from '../references/IntroText'
 
 const Home = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const Ref = "HousingSearch";
   const searchOptions = TextReferences[Ref];
   const [searchType, setSearchType] = useState(searchOptions[0].value);
@@ -17,10 +16,11 @@ const Home = () => {
     if (!searchTerm) {
       return;
     }
-    history.push(
+    navigate(
       `${RouteConstants.SEARCH}/${searchType}/${encodeURIComponent(
         searchTerm
-      )}/1`
+      )}/1`,
+      { replace: false }
     );
   };
 
@@ -42,8 +42,8 @@ const Home = () => {
                 value={searchType}
                 onChange={(e) => setSearchType(e.target.value)}
                 className="govuk-select lbh-select"
-                data-cy="search-form-select-type-field"
                 style={{ width: "200px" }}
+                data-cy="search-form-select-type-field"
               >
                 {searchOptions.map((opt) => {
                   return (

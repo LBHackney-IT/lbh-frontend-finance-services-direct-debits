@@ -1,19 +1,20 @@
-import DirectDebitCreate from "./DirectDebitCreate";
-import DirectDebitEdit from "./DirectDebitEdit";
-import DirectDebitList from "./DirectDebitList";
-import DirectDebitPause from "./DirectDebitPause";
-import DirectDebitView from "./DirectDebitView";
+import DirectDebitCreate from "./directdebits/Create";
+import DirectDebitEdit from "./directdebits/Edit";
+import DirectDebitList from "./directdebits/List";
+import DirectDebitManual from "./directdebits/Manual";
+import DirectDebitPause from "./directdebits/Pause";
+import DirectDebitView from "./directdebits/View";
 import Home from "./Home";
 import Property from "./Property";
 import PropertyForm from "./PropertyForm";
 import Search from "./Search";
+import Tenant from "./Tenant";
 import TenantForm from "./TenantForm";
-import TenantSingle from "./TenantSingle";
 
 export {
   Home,
   Search,
-  TenantSingle,
+  Tenant,
   TenantForm,
   Property,
   PropertyForm,
@@ -22,4 +23,5 @@ export {
   DirectDebitCreate,
   DirectDebitEdit,
   DirectDebitPause,
+  DirectDebitManual,
 };

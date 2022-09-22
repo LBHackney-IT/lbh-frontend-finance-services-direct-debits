@@ -61,6 +61,7 @@ const Form = (params) => {
         <button
           className="govuk-button lbh-button"
           key={fieldKey}
+          data-cy={group[0].dataCy}
           onClick={() => setValidate(true)}
         >
           {group[0].text}
@@ -94,8 +95,8 @@ const Form = (params) => {
           {field.label && (
             <label
               className="govuk-label lbh-label"
+              data-cy={`${field.dataCy}-label`}
               htmlFor={id}
-              data-cy={`${field.dataCy}_label`}
             >
               {field.label}
             </label>
@@ -122,6 +123,7 @@ const Form = (params) => {
             <DatePicker
               onChange={(e) => fieldChange(field.name, e)}
               value={data[field.name]}
+              data-cy={field.dataCy}
               format="y-MM-dd"
             />
           )}
@@ -137,8 +139,8 @@ const Form = (params) => {
               id={id}
               name={field.name}
               required={field.required}
-              data-cy={field.dataCy}
               aria-describedby="input-with-error-message-hint input-with-error-message-error"
+              data-cy={field.dataCy}
             >
               <option value="">Please Select</option>
               {field.options.map((option) => {

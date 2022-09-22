@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import DirectDebitList from "../fragments/DirectDebitList";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
+import * as RouteConstants from "../references/RouteConstants";
 import * as TextReferences from "../references/TextReferences";
-import { getDirectDebits, getPerson, getProperty } from "../routes/Api";
-import * as RouteConstants from "../routes/RouteConstants";
+import * as Read from "../services/Read";
 import { descriptionList } from "../templates/descriptionListHTML";
 
 const Property = () => {
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const PropertyId = params.id ? decodeURIComponent(params.id) : "";
   const [searching, setSearching] = useState(false);
   const [property, setProperty] = useState(undefined);
-  const [tenants, setTenants] = useState(undefined);
   const [directDebits, setDirectDebits] = useState(undefined);
 
   useEffect(() => {
     const searchCall = async () => {
       setSearching(true);
-      const response = await getProperty({
+      const response = await Read.Property({
         id: PropertyId,
       });
       setProperty(response);
@@ -33,30 +32,22 @@ const Property = () => {
     if (property === undefined) {
       return;
     }
-    const items = async () => {
-      return Promise.all(
-        property.householdMembers.map((member) => {
-          const person = getPerson(member);
-          return person;
-        })
-      );
-    };
-    items().then((response) => setTenants(response));
-
-    const directDebitCall = async () => {
-      const response = await getDirectDebits({
-        TargetId: PropertyId,
+    const call = async () => {
+      const callDirectDebit = await Read.DirectDebitPRN({
+        prn: property.paymentReference,
       });
-      setDirectDebits(response);
+      setDirectDebits({ results: callDirectDebit });
     };
-    directDebitCall();
-  }, [property, PropertyId]);
+    call();
+  }, [property]);
 
   const tenantsHTML = () => {
-    if (tenants === undefined) {
+    if (property === undefined) {
       return;
     }
-
+    if (!property.householdMembers.length) {
+      return;
+    }
     return (
       <>
         <h2>{TextReferences.Titles.Tenants}</h2>
@@ -64,19 +55,12 @@ const Property = () => {
           <thead className="govuk-table__head">
             <tr className="govuk-table__row">
               <th className="govuk-table__header">Name</th>
-              <th className="govuk-table__header">Tenancy ID</th>
               <th className="govuk-table__header">Tenancy Type</th>
-              <th className="govuk-table__header">Time in property</th>
-              <th className="govuk-table__header">Start Date</th>
               <th className="govuk-table__header"> </th>
             </tr>
           </thead>
           <tbody className="govuk-table__body">
-            {tenants.map((tenant) => {
-              const address = tenant.tenures.filter(
-                (tenure) => tenure.id === PropertyId
-              );
-
+            {property.householdMembers.map((tenant) => {
               return (
                 <tr className="govuk-table__row" key={tenant.id}>
                   <td className="govuk-table__cell">
@@ -86,31 +70,17 @@ const Property = () => {
                       to={`${RouteConstants.TENANT}/${tenant.id}`}
                       data-cy="propertyList-to-single-link"
                     >
-                      {tenant.preferredTitle
-                        ? tenant.preferredTitle
-                        : tenant.title}{" "}
-                      {tenant.preferredFirstName
-                        ? tenant.preferredFirstName
-                        : tenant.firstName}{" "}
-                      {tenant.preferredSurname
-                        ? tenant.preferredSurname
-                        : tenant.surname}
+                      {tenant.fullName}
                     </Link>
                   </td>
-                  <td className="govuk-table__cell">{address[0].uprn}</td>
-                  <td className="govuk-table__cell">{address[0].type}</td>
                   <td className="govuk-table__cell">
-                    {DateFormat(address[0].startDate)} -{" "}
-                    {address[0].endDate
-                      ? `${DateFormat(address[0].endDate)}`
-                      : "Current"}
-                  </td>
-                  <td className="govuk-table__cell">
-                    {DateFormat(address[0].startDate)}
+                    {tenant.personTenureType}
                   </td>
                   <td className="govuk-table__cell">
                     <Link
-                      to={`${RouteConstants.DIRECTDEBIT}/${tenant.id}/create`}
+                      to={`${RouteConstants.DIRECTDEBITSINGLE}/${tenant.id}/${
+                        property.paymentReference ?? 0
+                      }/create`}
                       className="govuk-button lbh-button lbh-button-sm mt-0"
                       title={TextReferences.TextRef.AddDirectDebit}
                       data-cy="propertyList-to-directDebitCreate-link"
@@ -130,7 +100,7 @@ const Property = () => {
   const propertyView = () => {
     const back = (
       <button
-        onClick={history.goBack}
+        onClick={() => navigate(-1)}
         className="mt-0 govuk-button lbh-button lbh-button-secondary"
       >
         {TextReferences.TextRef.Back}
@@ -191,7 +161,6 @@ const Property = () => {
             <p>{back}</p>
           </div>
         </div>
-        {/* <p>ID: {property.id}</p> */}
         {property.charges && (
           <>
             <h2>{TextReferences.TextRef.Financial}</h2>
@@ -227,12 +196,12 @@ const Property = () => {
             key: "Property Reference #",
             val: property.tenuredAsset.propertyReference,
           },
+          { key: "Start Date", val: DateFormat(property.startOfTenureDate) },
         ])}
         <DirectDebitList data={directDebits} />
       </>
     );
   };
-
   return (
     <>
       {propertyView()}

@@ -6,17 +6,16 @@ const Pagination = (params) => {
 
   const beginning = page > 10 ? page - 10 : 1;
   const finish = page + 10 < divided ? page + 10 : divided;
-  const range = (start, end, step) =>
-    Array.from(
-      Array.from(Array(Math.ceil((end - start) / step)).keys()),
-      (x) => start + x * step
-    );
+
+  const range = (start, end) => {
+    return new Array(end - start + 1).fill(undefined).map((_, i) => i + start);
+  };
 
   return (
     <>
       <div className="pagination_wrap">
         <ul className="pagination">
-          {range(beginning, finish, 1).map((num) => {
+          {range(beginning, finish).map((num) => {
             return (
               <li
                 key={`pagination_${num}`}

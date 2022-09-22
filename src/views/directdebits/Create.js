@@ -1,14 +1,15 @@
 import React, { useState } from "react"; // useEffect
-import { useHistory, useParams } from "react-router-dom"; // useNavigate useParams
+import { useNavigate, useParams } from "react-router-dom"; // useNavigate useParams
 
-import Form from "../references/Form";
-import * as TextReferences from "../references/TextReferences";
-import { addDirectDebit } from "../routes/Api";
+import Form from "../../references/Form";
+import * as TextReferences from "../../references/TextReferences";
+import * as Create from "../../services/Create";
 
 const DirectDebitCreate = () => {
   const params = useParams();
-  const navigate = useHistory();
+  const navigate = useNavigate();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
+  const PaymentRef = params.prn ? decodeURIComponent(params.prn) : "";
 
   const [sentResp, setSentResp] = useState(undefined);
   const [errors, setErrors] = useState([]);
@@ -17,6 +18,7 @@ const DirectDebitCreate = () => {
     targetId: TenantId, // 3fa85f64-5717-4562-b3fc-2c963f66afa6
     accountHolder: "",
     reference: "",
+    paymentReference: PaymentRef,
     bankAccountNumber: "",
     branchSortCode: "",
     serviceUserNumber: "",
@@ -26,7 +28,7 @@ const DirectDebitCreate = () => {
     bankOrBuildingSocietyAddress2: "",
     bankOrBuildingSocietyAddress3: "",
     bankOrBuildingSocietyPostcode: "",
-    additionalAmount: null,
+    additionalAmount: 0,
     overrideAmount: null,
     firstPaymentDate: new Date(), // 2022-07-22T16:04:44.333Z
     preferredDate: 1,
@@ -36,7 +38,8 @@ const DirectDebitCreate = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addDirectDebit(directDebits).then((data) => setSentResp(data));
+    console.log(directDebits);
+    Create.addDirectDebit(directDebits).then((data) => setSentResp(data));
   };
 
   if (sentResp !== undefined && sentResp.id) {

@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { CurrencyFormat, DateFormat } from "../references/Functions";
+import * as RouteConstants from "../references/RouteConstants";
 import * as TextReferences from "../references/TextReferences";
-import * as RouteConstants from "../routes/RouteConstants";
 
 const PropertiesList = (params) => {
   const { data, targetId } = params;
@@ -32,8 +32,9 @@ const PropertiesList = (params) => {
               <tr className="govuk-table__row">
                 <th className="govuk-table__header">Address</th>
                 <th className="govuk-table__header">Date</th>
-                <th className="govuk-table__header">Current Balance</th>
-                <th className="govuk-table__header">Tenancy Type</th>
+                <th className="govuk-table__header">Balance</th>
+                <th className="govuk-table__header">PRN</th>
+                <th className="govuk-table__header">Type</th>
                 <th className="govuk-table__header">Status</th>
                 <th className="govuk-table__header"> </th>
               </tr>
@@ -49,9 +50,8 @@ const PropertiesList = (params) => {
                       <Link
                         className="lbh-link"
                         to={`${RouteConstants.PROPERTY}/${tenure.id}`}
-                        data-cy={`tenant-single-to-property-link-${tenure.id}`}
                         role="button"
-                        type="button"
+                        data-cy={`tenant-single-to-property-link-${tenure.id}`}
                         aria-label={tenure.assetFullAddress}
                       >
                         {tenure.assetFullAddress}
@@ -62,6 +62,9 @@ const PropertiesList = (params) => {
                       {tenure.endDate ? DateFormat(tenure.endDate) : "Current"}
                     </td>
                     <td className="govuk-table__cell">{CurrencyFormat()}</td>
+                    <td className="govuk-table__cell">
+                      {tenure.paymentReference}
+                    </td>
                     <td className="govuk-table__cell">{tenure.type}</td>
                     <td className="govuk-table__cell">
                       {tenure.isActive ? "Active" : "In-Active"}
@@ -71,9 +74,10 @@ const PropertiesList = (params) => {
                         <Link
                           className="govuk-button lbh-button lbh-button-sm mt-0"
                           data-cy={`tenant-single-to-direct-debit-create-link-${targetId}`}
-                          to={`${RouteConstants.DIRECTDEBIT}/${targetId}/create`}
+                          to={`${
+                            RouteConstants.DIRECTDEBITSINGLE
+                          }/${targetId}/${tenure.paymentReference ?? 0}/create`}
                           role="button"
-                          type="button"
                           aria-label={TextReferences.TextRef.AddDirectDebit}
                         >
                           {TextReferences.TextRef.AddDirectDebit}

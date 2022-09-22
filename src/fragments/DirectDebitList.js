@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import * as RouteConstants from "../references/RouteConstants";
 import * as TextReferences from "../references/TextReferences";
-import * as RouteConstants from "../routes/RouteConstants";
 
 const DirectDebitList = (params) => {
   const { data } = params;
@@ -39,6 +39,7 @@ const DirectDebitList = (params) => {
               <th className="govuk-table__header">Status</th>
               <th className="govuk-table__header">Account Number</th>
               <th className="govuk-table__header">Sort Code</th>
+              <th className="govuk-table__header">PRN</th>
               <th className="govuk-table__header">Collection Date</th>
               <th className="govuk-table__header"> </th>
             </tr>
@@ -52,12 +53,13 @@ const DirectDebitList = (params) => {
                   <td className="govuk-table__cell">{dd.status}</td>
                   <td className="govuk-table__cell">{dd.bankAccountNumber}</td>
                   <td className="govuk-table__cell">{dd.branchSortCode}</td>
+                  <td className="govuk-table__cell">{dd.paymentReference}</td>
                   <td className="govuk-table__cell">
                     {TextReferences.CollectionDates[dd.preferredDate]}
                   </td>
                   <td className="govuk-table__cell">
                     <Link
-                      to={`${RouteConstants.DIRECTDEBIT}/${dd.targetId}`}
+                      to={`${RouteConstants.DIRECTDEBITSINGLE}/${dd.id}`}
                       className="govuk-button lbh-button lbh-button-sm mt-0"
                       title="View Direct Debit"
                       role="button"

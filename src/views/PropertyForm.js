@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"; // useNavigate
 
 import Form from "../references/Form";
 import * as TextReferences from "../references/TextReferences";
-import { postPerson } from "../routes/Api";
+import * as Create from "../services/Create";
 
 const PropertyForm = () => {
   const params = useParams();
@@ -28,7 +28,7 @@ const PropertyForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     // console.log(data)
-    const post = await postPerson(data);
+    const post = await Create.postPerson(data);
     console.log(post);
   };
 

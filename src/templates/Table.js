@@ -108,8 +108,8 @@ const TableBodyHTML = ({ tableHead, data }) => {
             return (
               <td className={`govuk-table__cell${row.classes}`} key={key}>
                 <Link
-                  to={`/${row.linkPrefix}${val[row.sort]}`}
                   data-cy={`${row.dataCy}-${val[row.sort]}`}
+                  to={`/${row.linkPrefix}${val[row.sort]}`}
                   className="govuk-button lbh-button lbh-button-sm mt-0"
                   title={val[row.sort]}
                 >

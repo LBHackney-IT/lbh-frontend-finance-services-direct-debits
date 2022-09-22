@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import * as RouteConstants from "./routes/RouteConstants";
-import * as Views from "./views";
+import * as RouteConstants from "./references/RouteConstants";
+import * as Views from "./views/Views";
 import "./App.css";
 
 const App = (): JSX.Element => (
@@ -14,35 +14,35 @@ const App = (): JSX.Element => (
     <Route path={`${RouteConstants.SEARCH}/:type/:search/:page`}>
       <Views.Search />
     </Route>
-
-    <Route path={`${RouteConstants.DIRECTDEBIT}/:id/edit`}>
+    <Route path={`${RouteConstants.DIRECTDEBIT}${RouteConstants.MANUALSUBMIT}`}>
+      <Views.DirectDebitManual />
+    </Route>
+    <Route path={`${RouteConstants.DIRECTDEBITSINGLE}/:id/edit`}>
       <Views.DirectDebitEdit />
     </Route>
-
-    <Route path={`${RouteConstants.DIRECTDEBIT}/:id/pause`}>
+    <Route path={`${RouteConstants.DIRECTDEBITSINGLE}/:id/pause`}>
       <Views.DirectDebitPause />
     </Route>
-
-    <Route path={`${RouteConstants.DIRECTDEBIT}/:id/create`}>
+    <Route path={`${RouteConstants.DIRECTDEBITSINGLE}/:id/:prn/create`}>
       <Views.DirectDebitCreate />
     </Route>
-
-    <Route path={`${RouteConstants.DIRECTDEBIT}/:id`}>
+    <Route path={`${RouteConstants.DIRECTDEBITSINGLE}/:id`}>
       <Views.DirectDebitView />
     </Route>
 
-    <Route path={`${RouteConstants.DIRECTDEBIT}`}>
+    <Route path={`${RouteConstants.DIRECTDEBIT}/:pagination`}>
+      <Views.DirectDebitList />
+    </Route>
+    <Route path={RouteConstants.DIRECTDEBIT}>
       <Views.DirectDebitList />
     </Route>
 
     <Route path={`${RouteConstants.PROPERTY}/form/:type`}>
       <Views.PropertyForm />
     </Route>
-
     <Route path={`${RouteConstants.PROPERTY}/form/:type/:id`}>
       <Views.PropertyForm />
     </Route>
-
     <Route path={`${RouteConstants.PROPERTY}/:id`}>
       <Views.Property />
     </Route>
@@ -50,13 +50,11 @@ const App = (): JSX.Element => (
     <Route path="/:type/form">
       <Views.TenantForm />
     </Route>
-
     <Route path="/:type/form/:id">
       <Views.TenantForm />
     </Route>
-
     <Route path="/:type/:id">
-      <Views.TenantSingle />
+      <Views.Tenant />
     </Route>
   </Switch>
 );

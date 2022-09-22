@@ -48,6 +48,19 @@ const HousingSearch = [
   { value: "Leasehold", text: "Leasehold" },
 ]; // 0 = Leaseholder / 1 = Tenant
 
+const CollectionDates = {
+  1: "1st of the month",
+  8: "8th of the month",
+  16: "16th of the month",
+  25: "25th of the month",
+};
+const CollectionDatesArray = [
+  [1, "1st of the month"],
+  [8, "8th of the month"],
+  [16, "16th of the month"],
+  [25, "25th of the month"],
+];
+
 const DirectDebitFormFields = [
   [
     { field: "title", text: "Bank Details" },
@@ -92,7 +105,7 @@ const DirectDebitFormFields = [
       required: true,
       type: "text",
       name: "reference",
-      label: "Payment Reference",
+      label: "Reference",
       dataCy: "directDebitForm-reference-input",
     },
   ],
@@ -173,12 +186,7 @@ const DirectDebitFormFields = [
     {
       field: "select",
       required: false,
-      options: [
-        [1, "1st of the month"],
-        [8, "8th of the month"],
-        [16, "16th of the month"],
-        [25, "25th of the month"],
-      ],
+      options: CollectionDatesArray,
       name: "preferredDate",
       label: "Preferred date (optional)",
       dataCy: "directDebitForm-preferredDate-select",
@@ -187,7 +195,7 @@ const DirectDebitFormFields = [
   [
     {
       field: "submit",
-      text: "Generate Direct Debit form for resident",
+      text: "Add Direct Debit",
       dataCy: "directDebitForm-submit",
     },
   ],
@@ -214,12 +222,7 @@ const DirectDebitEditFormFields = [
     {
       field: "select",
       required: false,
-      options: [
-        [1, "1st of the month"],
-        [8, "8th of the month"],
-        [16, "16th of the month"],
-        [25, "25th of the month"],
-      ],
+      options: CollectionDatesArray,
       name: "preferredDate",
       label: "Preferred date (optional)",
       dataCy: "directDebitEditForm-preferredDate-select",
@@ -277,6 +280,19 @@ const DirectDebitPauseFormFields = [
       dataCy: "directDebitPauseForm-submit",
     },
   ],
+];
+
+const DirectDebitManualSubmit = [
+  [
+    {
+      field: "select",
+      required: false,
+      options: CollectionDatesArray,
+      name: "preferredDate",
+      label: "Preferred date (optional)",
+    },
+  ],
+  [{ field: "submit", text: "Send to PTX" }],
 ];
 
 const TenantFormFields = [
@@ -363,27 +379,15 @@ const TenantFormFields = [
   [{ field: "submit", text: "Create Tenant", dataCy: "tenantForm-submit" }],
 ];
 
-const CollectionDates = {
-  1: "1st of the month",
-  8: "8th of the month",
-  16: "16th of the month",
-  25: "25th of the month",
-};
-const CollectionDatesArray = [
-  [1, "1st of the month"],
-  [8, "8th of the month"],
-  [16, "16th of the month"],
-  [25, "25th of the month"],
-];
-
 export {
   Titles,
   TextRef,
+  CollectionDates,
+  CollectionDatesArray,
   HousingSearch,
   DirectDebitFormFields,
   DirectDebitEditFormFields,
   DirectDebitPauseFormFields,
+  DirectDebitManualSubmit,
   TenantFormFields,
-  CollectionDates,
-  CollectionDatesArray,
 };

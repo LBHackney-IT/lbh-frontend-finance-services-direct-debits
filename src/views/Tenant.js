@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
+import DirectDebitList from "../fragments/DirectDebitList";
 import PropertiesList from "../fragments/PropertiesList";
 import { CurrencyFormat, DateFormat } from "../references/Functions";
 import * as TextReferences from "../references/TextReferences";
-import { getDirectDebits, getPerson } from "../routes/Api";
+import * as Read from "../services/Read";
 import { descriptionList } from "../templates/descriptionListHTML";
 
-const TenantSingle = () => {
+const Tenant = () => {
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const Type = params.type ? params.type : "Tenant";
 
@@ -18,23 +19,25 @@ const TenantSingle = () => {
   const [directDebits, setDirectDebits] = useState(undefined);
 
   useEffect(() => {
-    const searchCall = async () => {
+    const call = async () => {
       setSearching(true);
-      const callPerson = await getPerson({
-        id: TenantId,
-      });
+      const callPerson = await Read.Person({ id: TenantId });
       setTenant(callPerson);
       setSearching(false);
     };
-    searchCall();
+    call();
+  }, [TenantId]);
 
-    const directDebitCall = async () => {
-      const directDebitResponse = await getDirectDebits({
+  useEffect(() => {
+    const call = async () => {
+      const callDirectDebit = await Read.DirectDebits({
         TargetId: TenantId,
+        currentPage: 1,
       });
-      setDirectDebits(directDebitResponse);
+      setDirectDebits(callDirectDebit);
+      console.log(callDirectDebit);
     };
-    directDebitCall();
+    call();
   }, [TenantId]);
 
   return (
@@ -55,12 +58,13 @@ const TenantSingle = () => {
           style={{ textAlign: "right" }}
         >
           <button
-            onClick={() => history.goBack()}
+            onClick={() => navigate(-1)}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
             data-cy="tenant-single-to-back-link"
           >
             {TextReferences.TextRef.Back}
           </button>
+
           {tenantData !== undefined ? (
             <Link
               to={`/${Type}/form/${TenantId}`}
@@ -137,18 +141,13 @@ const TenantSingle = () => {
             { key: "Date of Birth", val: DateFormat(tenantData.dateOfBirth) },
           ])}
           <PropertiesList data={tenantData} targetId={tenantData.id} />
+          <DirectDebitList data={directDebits} />
         </>
       ) : (
         ""
-      )}
-
-      {directDebits !== undefined ? (
-        <p>Directe debits found</p>
-      ) : (
-        <p>No direct debits found</p>
       )}
     </>
   );
 };
 
-export default TenantSingle;
+export default Tenant;
