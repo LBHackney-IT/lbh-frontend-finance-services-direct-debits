@@ -1,11 +1,12 @@
 import Cookies from "js-cookie";
 
 const API_URLS = {
-  HOUSING: process.env.REACT_APP_ENV_API_HOUSING,
-  ASSET: process.env.REACT_APP_ENV_API_ASSET,
-  TENURE: process.env.REACT_APP_ENV_API_TENURE,
-  PERSON: process.env.REACT_APP_ENV_API_PERSON,
-  DIRECTDEBIT: process.env.REACT_APP_ENV_API_DIRECT_DEBIT,
+  DIRECTDEBIT:
+    "https://bvpgbe4xm0.execute-api.eu-west-2.amazonaws.com/development",
+  HOUSING: "https://y1e46yws9c.execute-api.eu-west-2.amazonaws.com/development",
+  ASSET: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development",
+  TENURE: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development",
+  PERSON: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development",
 };
 
 const fetchCall = async (url, method, body) => {
