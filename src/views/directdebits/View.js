@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom"; // Link
+import { Link, useHistory, useParams } from "react-router-dom"; // Link
 
 import PropertiesList from "../../fragments/PropertiesList";
 import TenantsList from "../../fragments/TenantsList";
@@ -93,7 +93,7 @@ const DirectDebitMaintenance = (params) => {
 
 const DirectDebitView = () => {
   const params = useParams();
-  const navigate = useLocation();
+  const history = useHistory();
   const id = params.id ? decodeURIComponent(params.id) : "";
 
   const [searching, setSearching] = useState(true);
@@ -129,7 +129,7 @@ const DirectDebitView = () => {
 
   const back = (
     <button
-      onClick={() => navigate(-1)}
+      onClick={() => history.push(-1)}
       className="mt-0 govuk-button lbh-button lbh-button-secondary"
       style={{ marginLeft: "10px" }}
     >

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import Form from "../../references/Form";
 import * as TextReferences from "../../references/TextReferences";
@@ -7,7 +7,7 @@ import * as Create from "../../services/Create";
 
 const DirectDebitCreate = () => {
   const params = useParams();
-  const navigate = useLocation();
+  const history = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const PaymentRef = params.prn ? decodeURIComponent(params.prn) : "";
 
@@ -74,7 +74,7 @@ const DirectDebitCreate = () => {
           style={{ textAlign: "right" }}
         >
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => history.push(-1)}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
           >
             {TextReferences.TextRef.Back}

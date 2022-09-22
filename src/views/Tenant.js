@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 import DirectDebitList from "../fragments/DirectDebitList";
 import PropertiesList from "../fragments/PropertiesList";
@@ -10,7 +10,7 @@ import { descriptionList } from "../templates/descriptionListHTML";
 
 const Tenant = () => {
   const params = useParams();
-  const navigate = useLocation();
+  const history = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const Type = params.type ? params.type : "Tenant";
 
@@ -58,7 +58,7 @@ const Tenant = () => {
           style={{ textAlign: "right" }}
         >
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => history.push(-1)}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
             data-cy="tenant-single-to-back-link"
           >
