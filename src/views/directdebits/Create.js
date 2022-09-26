@@ -28,7 +28,7 @@ const DirectDebitCreate = () => {
     bankOrBuildingSocietyAddress2: "",
     bankOrBuildingSocietyAddress3: "",
     bankOrBuildingSocietyPostcode: "",
-    additionalAmount: 0,
+    additionalAmount: null,
     overrideAmount: null,
     firstPaymentDate: new Date(), // 2022-07-22T16:04:44.333Z
     preferredDate: 1,
