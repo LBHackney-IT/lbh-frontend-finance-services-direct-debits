@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import 'regenerator-runtime'
+import "regenerator-runtime";
 
 const API_URLS = {
   HOUSING: process.env.API_HOUSING,
