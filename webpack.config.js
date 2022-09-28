@@ -37,12 +37,12 @@ module.exports = (webpackConfigEnv, argv) => {
     plugins: [
       // Add any required environment variables eg api endpoint here
       new webpack.EnvironmentPlugin({
-        APP_ENV: dotenv.APP_ENV || "development",
-        API_DIRECT_DEBIT: dotenv.API_DIRECT_DEBIT_DEVELOPMENT || '',
-        API_HOUSING: dotenv.API_HOUSING_DEVELOPMENT || '',
-        API_ASSET: dotenv.API_ASSET_DEVELOPMENT || '',
-        API_TENURE: dotenv.API_TENURE_DEVELOPMENT || '',
-        API_PERSON: dotenv.API_PERSON_DEVELOPMENT || '',
+        APP_ENV: process.env.APP_ENV || "development",
+        API_DIRECT_DEBIT: process.env.API_DIRECT_DEBIT || '',
+        API_HOUSING: process.env.API_HOUSING || '',
+        API_ASSET: process.env.API_ASSET || '',
+        API_TENURE: process.env.API_TENURE || '',
+        API_PERSON: process.env.API_PERSON || '',
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
