@@ -134,6 +134,11 @@ jobs:
                 name: build
                 command: |
                     export APP_ENV=development
+                    export API_DIRECT_DEBIT=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/direct-debit-api --query Parameter.Value --output text)
+                    export API_HOUSING=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/housing-api --query Parameter.Value --output text)
+                    export API_ASSET=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/asset-api --query Parameter.Value --output text)
+                    export API_TENURE=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/tenure-api --query Parameter.Value --output text)
+                    export API_PERSON=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/person-api --query Parameter.Value --output text)
                     export APP_CDN=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
@@ -156,6 +161,11 @@ jobs:
                   name: build
                   command: |
                     export APP_ENV=staging
+                    export API_DIRECT_DEBIT=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/direct-debit-api --query Parameter.Value --output text)
+                    export API_HOUSING=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/housing-api --query Parameter.Value --output text)
+                    export API_ASSET=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/asset-api --query Parameter.Value --output text)
+                    export API_TENURE=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/tenure-api --query Parameter.Value --output text)
+                    export API_PERSON=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/person-api --query Parameter.Value --output text)
                     export APP_CDN=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
@@ -178,6 +188,11 @@ jobs:
                   name: build
                   command: |
                     export APP_ENV=production
+                    export API_DIRECT_DEBIT=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/direct-debit-api --query Parameter.Value --output text)
+                    export API_HOUSING=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/housing-api --query Parameter.Value --output text)
+                    export API_ASSET=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/asset-api --query Parameter.Value --output text)
+                    export API_TENURE=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/tenure-api --query Parameter.Value --output text)
+                    export API_PERSON=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/person-api --query Parameter.Value --output text)                    
                     export APP_CDN=$(aws ssm get-parameter --name /housing-finance-services-direct-debits/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
