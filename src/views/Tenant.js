@@ -58,7 +58,7 @@ const Tenant = () => {
           style={{ textAlign: "right" }}
         >
           <button
-            onClick={() => history.push(-1)}
+            onClick={() => history.goBack()}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
             data-cy="tenant-single-to-back-link"
           >

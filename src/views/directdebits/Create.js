@@ -43,7 +43,7 @@ const DirectDebitCreate = () => {
   };
 
   if (sentResp !== undefined && sentResp.id) {
-    history.push(-1);
+    history.goBack();
   }
 
   if (sentResp !== undefined && sentResp.errors) {
@@ -74,7 +74,7 @@ const DirectDebitCreate = () => {
           style={{ textAlign: "right" }}
         >
           <button
-            onClick={() => history.push(-1)}
+            onClick={() => history.goBack()}
             className="mt-0 govuk-button lbh-button lbh-button-secondary"
           >
             {TextReferences.TextRef.Back}

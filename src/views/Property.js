@@ -100,7 +100,7 @@ const Property = () => {
   const propertyView = () => {
     const back = (
       <button
-        onClick={() => history.push(-1)}
+        onClick={() => history.goBack()}
         className="mt-0 govuk-button lbh-button lbh-button-secondary"
       >
         {TextReferences.TextRef.Back}
