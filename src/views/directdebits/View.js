@@ -129,7 +129,7 @@ const DirectDebitView = () => {
 
   const back = (
     <button
-      onClick={() => history.push(-1)}
+      onClick={() => history.goBack()}
       className="mt-0 govuk-button lbh-button lbh-button-secondary"
       style={{ marginLeft: "10px" }}
     >
