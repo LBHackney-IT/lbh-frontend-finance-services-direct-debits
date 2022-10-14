@@ -188,7 +188,6 @@
 }
 .govuk-tabs__list-item--selected {
   position: relative;
-  margin-top: -5px;
   margin-bottom: -1px;
   padding: 14px 19px 16px;
   border: 1px solid #b1b4b6;
