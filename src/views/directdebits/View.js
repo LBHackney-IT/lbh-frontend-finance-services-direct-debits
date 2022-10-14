@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom"; // Link
 
 import PropertiesList from "../../fragments/PropertiesList";
+import TabHeadings from "../../fragments/TabHeadings";
 import TenantsList from "../../fragments/TenantsList";
 import { DataReferences } from "../../references/DataReferences";
 import { CurrencyFormat, DateFormat } from "../../references/Functions";
@@ -101,6 +102,8 @@ const DirectDebitView = () => {
 
   const [searchingTenant, setSearchingTenant] = useState(true);
   const [tenant, setTenant] = useState(undefined);
+
+  const [tab, setTab] = useState("status");
 
   // const [searchingProperty, setSearchingProperty] = useState(true)
   // const [property, setProperty] = useState(undefined)
@@ -209,70 +212,114 @@ const DirectDebitView = () => {
         </div>
       </div>
 
-      <h2>Status Information</h2>
-      {descriptionList([
-        { key: "ID", val: directDebit.id },
-        { key: "Target ID", val: directDebit.targetId },
-        { key: "Status", val: directDebit.status },
-        { key: "Paused", val: directDebit.isPaused ? "Yes" : "No" },
-        { key: "Created Date", val: DateFormat(directDebit.createdDate) },
-        { key: "Updated Date", val: DateFormat(directDebit.updatedDate) },
-        {
-          key: "Cancellation Date",
-          val: DateFormat(directDebit.cancellationDate),
-        },
-        {
-          key: "First Payment Date",
-          val: DateFormat(directDebit.firstPaymentDate),
-        },
-        { key: "Type", val: directDebit.targetType },
-      ])}
-
-      <h2>Account Holder</h2>
-      {descriptionList([
-        { key: "Acc", val: directDebit.acc },
-        { key: "Account Holder", val: directDebit.accountHolder },
-        { key: "Account Number", val: directDebit.accountNumber },
-        { key: "Service User Number", val: directDebit.serviceUserNumber },
-      ])}
-
-      <h2>Financial Details</h2>
-      {descriptionList([
-        { key: "Reference", val: directDebit.reference },
-        { key: "Amount", val: CurrencyFormat(directDebit.amount) },
-        {
-          key: "Additional Amount",
-          val: CurrencyFormat(directDebit.additionalAmount),
-        },
-        { key: "Fixed Amount", val: CurrencyFormat(directDebit.fixedAmount) },
-        { key: "Fund", val: directDebit.fund },
-        {
-          key: "Preferred Date",
-          val: TextReferences.CollectionDates[directDebit.preferredDate],
-        },
-        { key: "Payment Reference (PRN)", val: directDebit.paymentReference },
-        { key: "Trans", val: directDebit.trans },
-      ])}
-
-      <h2>Bank Details</h2>
-      {descriptionList([
-        { key: "To", val: directDebit.bankOrBuildingSocietyTo },
-        { key: "Branch Sort", val: directDebit.branchSortCode },
-        { key: "Bank Account Number", val: directDebit.accountNumber },
-        { key: "Bank Name", val: directDebit.bankOrBuildingSocietyName },
-        {
-          key: "Bank Address",
-          val: `${directDebit.bankOrBuildingSocietyAddress1} ${directDebit.bankOrBuildingSocietyAddress2} ${directDebit.bankOrBuildingSocietyAddress3} ${directDebit.bankOrBuildingSocietyPostcode}`,
-        },
-      ])}
-
-      <DirectDebitMaintenance directDebit={directDebit} />
-      <TenantView
-        tenant={tenant}
-        directDebit={directDebit}
-        searching={searching}
-        searchingTenant={searchingTenant}
+      <TabHeadings
+        titles={{
+          status: "Status Information",
+          account: "Account Holder",
+          financial: "Financial Details",
+          bank: "Bank Details",
+          maintenance: "Direct Debit Maintenance",
+          tenant: "Tenant & Property",
+        }}
+        tab={tab}
+        setTab={setTab}
       />
+
+      <div
+        className="tab_status"
+        style={{ display: tab === "status" ? "block" : "none" }}
+      >
+        <h2>Status Information</h2>
+        {descriptionList([
+          { key: "ID", val: directDebit.id },
+          { key: "Target ID", val: directDebit.targetId },
+          { key: "Status", val: directDebit.status },
+          { key: "Paused", val: directDebit.isPaused ? "Yes" : "No" },
+          { key: "Created Date", val: DateFormat(directDebit.createdDate) },
+          { key: "Updated Date", val: DateFormat(directDebit.updatedDate) },
+          {
+            key: "Cancellation Date",
+            val: DateFormat(directDebit.cancellationDate),
+          },
+          {
+            key: "First Payment Date",
+            val: DateFormat(directDebit.firstPaymentDate),
+          },
+          { key: "Type", val: directDebit.targetType },
+        ])}
+      </div>
+
+      <div
+        className="tab_account"
+        style={{ display: tab === "account" ? "block" : "none" }}
+      >
+        <h2>Account Holder</h2>
+        {descriptionList([
+          { key: "Acc", val: directDebit.acc },
+          { key: "Account Holder", val: directDebit.accountHolder },
+          { key: "Account Number", val: directDebit.accountNumber },
+          { key: "Service User Number", val: directDebit.serviceUserNumber },
+        ])}
+      </div>
+
+      <div
+        className="tab_financial"
+        style={{ display: tab === "financial" ? "block" : "none" }}
+      >
+        <h2>Financial Details</h2>
+        {descriptionList([
+          { key: "Reference", val: directDebit.reference },
+          { key: "Amount", val: CurrencyFormat(directDebit.amount) },
+          {
+            key: "Additional Amount",
+            val: CurrencyFormat(directDebit.additionalAmount),
+          },
+          { key: "Fixed Amount", val: CurrencyFormat(directDebit.fixedAmount) },
+          { key: "Fund", val: directDebit.fund },
+          {
+            key: "Preferred Date",
+            val: TextReferences.CollectionDates[directDebit.preferredDate],
+          },
+          { key: "Payment Reference (PRN)", val: directDebit.paymentReference },
+          { key: "Trans", val: directDebit.trans },
+        ])}
+      </div>
+
+      <div
+        className="tab_bank"
+        style={{ display: tab === "bank" ? "block" : "none" }}
+      >
+        <h2>Bank Details</h2>
+        {descriptionList([
+          { key: "To", val: directDebit.bankOrBuildingSocietyTo },
+          { key: "Branch Sort", val: directDebit.branchSortCode },
+          { key: "Bank Account Number", val: directDebit.accountNumber },
+          { key: "Bank Name", val: directDebit.bankOrBuildingSocietyName },
+          {
+            key: "Bank Address",
+            val: `${directDebit.bankOrBuildingSocietyAddress1} ${directDebit.bankOrBuildingSocietyAddress2} ${directDebit.bankOrBuildingSocietyAddress3} ${directDebit.bankOrBuildingSocietyPostcode}`,
+          },
+        ])}
+      </div>
+
+      <div
+        className="tab_maintenance"
+        style={{ display: tab === "maintenance" ? "block" : "none" }}
+      >
+        <DirectDebitMaintenance directDebit={directDebit} />
+      </div>
+
+      <div
+        className="tab_tenant"
+        style={{ display: tab === "tenant" ? "block" : "none" }}
+      >
+        <TenantView
+          tenant={tenant}
+          directDebit={directDebit}
+          searching={searching}
+          searchingTenant={searchingTenant}
+        />
+      </div>
     </>
   );
 };

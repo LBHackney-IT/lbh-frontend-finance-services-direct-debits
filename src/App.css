@@ -157,3 +157,54 @@
 .access_request .btn { border:0; padding:12px; }
 .access_request .alert { position:relative; padding:1rem; margin-bottom:1rem; border:2px solid transparent; border-radius:0.25rem; }
 .access_request .alert-danger { border-color:#c4021a; color:#c4021a; font-size:0.85em; }
+
+.lbh-tabs {
+  overflow:hidden;
+}
+.govuk-tabs__list {
+  border-bottom: 1px solid #b1b4b6;
+  padding: 0;
+  list-style: none;
+  margin: 20px 0;
+  display:flex;
+}
+.govuk-tabs__list-item:before {
+  display:none;
+}
+.govuk-tabs__list-item {
+  font-size: 1.1rem;
+  line-height: 1.3157894737;
+  word-wrap: break-word;
+  position: relative;
+  margin-right: 5px;
+  margin-top:0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding: 14px 19px 16px;
+  background-color: #f3f2f1;
+  border: 1px solid #f3f2f1;
+  text-align: center;
+  cursor: pointer;
+}
+.govuk-tabs__list-item--selected {
+  position: relative;
+  margin-top: -5px;
+  margin-bottom: -1px;
+  padding: 14px 19px 16px;
+  border: 1px solid #b1b4b6;
+  border-bottom: 0;
+  background-color: #fff;
+}
+.govuk-tabs__tab {
+  display: inline-block;
+  margin-bottom: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.govuk-tabs__tab:active, 
+.govuk-tabs__tab:focus, 
+.govuk-tabs__tab:hover, 
+.govuk-tabs__tab:link, 
+.govuk-tabs__tab:visited {
+  color: #0b0c0c;
+}
