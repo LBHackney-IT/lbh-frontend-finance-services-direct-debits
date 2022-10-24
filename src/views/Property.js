@@ -190,7 +190,11 @@ const Property = () => {
           { key: "Start Date", val: DateFormat(property?.startOfTenureDate) },
         ])}
         <DirectDebitList
-          data={directDebits ? { results: directDebits } : undefined}
+          data={
+            Array.isArray(directDebits)
+              ? { results: [...directDebits] }
+              : undefined
+          }
         />
       </>
     );
