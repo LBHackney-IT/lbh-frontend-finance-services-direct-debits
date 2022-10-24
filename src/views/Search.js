@@ -29,16 +29,13 @@ const Tenants = () => {
     });
   });
 
+  console.log({ call: data });
+
   const searchResults = () => {
     if (status === "loading") {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
-    if (
-      data === undefined ||
-      data?.results ||
-      data?.results?.persons ||
-      data.results.persons.length === 0
-    ) {
+    if (data === undefined || data?.results?.persons.length === 0) {
       const searchTypeName = TextReferences[Ref].filter(
         (opt) => Type === opt.value
       );
@@ -49,8 +46,6 @@ const Tenants = () => {
         </h4>
       );
     }
-
-    console.log(data);
 
     return (
       <>
