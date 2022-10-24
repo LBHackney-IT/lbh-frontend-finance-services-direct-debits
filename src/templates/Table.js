@@ -58,6 +58,14 @@ const TableHeadHTML = ({ tableHead, sort, onSort }) => {
 const TableBodyHTML = ({ tableHead, data }) => {
   const tableHeaders = DataReferences[tableHead] || [];
 
+  if (data === undefined) {
+    return (
+      <tr>
+        <td>No data</td>
+      </tr>
+    );
+  }
+
   const tableBody = data.map((val, bodyKey) => {
     return (
       <tr className="govuk-table__row" key={bodyKey}>
