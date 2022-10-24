@@ -34,6 +34,9 @@ const Property = () => {
     if (property === undefined) {
       return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
+
+    console.log({ householdMembersCount: property.householdMembers.length });
+
     if (property?.householdMembers.length === 0) {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
