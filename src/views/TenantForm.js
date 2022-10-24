@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
 import Form from "../references/Form";
@@ -10,7 +11,6 @@ const TenantForm = () => {
   const params = useParams();
   const type = params.type ? decodeURIComponent(params.type) : "Tenant";
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
-  const [searching, setSearching] = useState(false);
 
   const [data, setData] = useState({
     title: "",
@@ -27,23 +27,15 @@ const TenantForm = () => {
     personTypes: [type],
   });
 
-  useEffect(() => {
-    const searchCall = async () => {
-      setSearching(true);
-      const response = await Read.Person({
-        id: TenantId,
-      });
-      setData(response);
-      setSearching(false);
-    };
-    searchCall();
-  }, [TenantId]);
+  const { status } = useQuery("search", async () => {
+    const response = await Read.Person({ id: TenantId });
+    setData(response);
+  });
 
   const [validate, setValidate] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // console.log(data)
     const post = await Create.postPerson(data);
     console.log(post);
   };
@@ -51,7 +43,7 @@ const TenantForm = () => {
   return (
     <>
       <h1>{TextReferences.Titles.TenantForm}</h1>
-      {searching ? (
+      {status === "loading" ? (
         <h4>{TextReferences.TextRef.Searching}</h4>
       ) : (
         <Form

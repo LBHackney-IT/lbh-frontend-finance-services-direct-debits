@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { Link, useHistory, useParams } from "react-router-dom"; // Link
 
 import PropertiesList from "../../fragments/PropertiesList";
@@ -15,13 +16,13 @@ import { TableBodyHTML } from "../../templates/Table";
 const TenantView = (params) => {
   const { tenant, directDebit, searching, searchingTenant } = params;
 
-  if (searching) {
+  if (searching === "loading") {
     return <h4>{TextReferences.TextRef.Searching}</h4>;
   }
-  if (searchingTenant) {
+  if (searchingTenant === "loading") {
     return <h4>{TextReferences.TextRef.Searching}</h4>;
   }
-  if (tenant === null) {
+  if (tenant === undefined) {
     return <h4>{TextReferences.TextRef.NoTenantRecords}</h4>;
   }
 
@@ -96,39 +97,22 @@ const DirectDebitView = () => {
   const params = useParams();
   const history = useHistory();
   const id = params.id ? decodeURIComponent(params.id) : "";
-
-  const [searching, setSearching] = useState(true);
-  const [directDebit, setDirectDebit] = useState(undefined);
-
-  const [searchingTenant, setSearchingTenant] = useState(true);
-  const [tenant, setTenant] = useState(undefined);
-
   const [tab, setTab] = useState("status");
 
-  // const [searchingProperty, setSearchingProperty] = useState(true)
-  // const [property, setProperty] = useState(undefined)
+  const { data: directDebit, status } = useQuery("directDebit", async () => {
+    return Read.DirectDebit({ id });
+  });
 
-  useEffect(() => {
-    const searchCall = async () => {
-      const call = await Read.DirectDebit({ id });
-      setDirectDebit(call);
-      setSearching(false);
-    };
-    searchCall();
-  }, [id]);
-
-  useEffect(() => {
-    if (searching || directDebit === undefined || directDebit === null) {
-      return;
+  const targetId = directDebit?.targetId;
+  const { data: tenant, status: searchingTenant } = useQuery(
+    "person",
+    async () => {
+      return Read.Person({ id: directDebit.targetId });
+    },
+    {
+      enabled: !!targetId,
     }
-
-    const searchPerson = async () => {
-      const callPerson = await Read.Person({ id: directDebit.targetId });
-      setTenant(callPerson);
-      setSearchingTenant(false);
-    };
-    searchPerson();
-  }, [searching, directDebit]);
+  );
 
   const back = (
     <button
@@ -140,7 +124,7 @@ const DirectDebitView = () => {
     </button>
   );
 
-  if (searching) {
+  if (status === "loading") {
     return (
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
@@ -157,7 +141,7 @@ const DirectDebitView = () => {
     );
   }
 
-  if (directDebit === undefined || directDebit === null) {
+  if (directDebit === undefined) {
     return (
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
@@ -316,7 +300,7 @@ const DirectDebitView = () => {
         <TenantView
           tenant={tenant}
           directDebit={directDebit}
-          searching={searching}
+          searching={status}
           searchingTenant={searchingTenant}
         />
       </div>

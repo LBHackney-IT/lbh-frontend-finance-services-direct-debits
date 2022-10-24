@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
 
 import DirectDebitList from "../fragments/DirectDebitList";
@@ -12,34 +13,22 @@ const Property = () => {
   const params = useParams();
   const history = useHistory();
   const PropertyId = params.id ? decodeURIComponent(params.id) : "";
-  const [searching, setSearching] = useState(false);
-  const [property, setProperty] = useState(undefined);
-  const [directDebits, setDirectDebits] = useState(undefined);
 
-  useEffect(() => {
-    const searchCall = async () => {
-      setSearching(true);
-      const response = await Read.Property({
-        id: PropertyId,
-      });
-      setProperty(response);
-      setSearching(false);
-    };
-    searchCall();
-  }, [PropertyId]);
+  const { data: property, status } = useQuery("search", async () => {
+    return Read.Property({ id: PropertyId });
+  });
 
-  useEffect(() => {
-    if (property === undefined) {
-      return;
+  const prn = property?.paymentReference;
+
+  const { data: directDebits } = useQuery(
+    "directDebit",
+    async () => {
+      return Read.DirectDebitPRN({ prn: property.paymentReference });
+    },
+    {
+      enabled: !!prn,
     }
-    const call = async () => {
-      const callDirectDebit = await Read.DirectDebitPRN({
-        prn: property.paymentReference,
-      });
-      setDirectDebits({ results: callDirectDebit });
-    };
-    call();
-  }, [property]);
+  );
 
   const tenantsHTML = () => {
     if (property === undefined) {
@@ -107,7 +96,7 @@ const Property = () => {
       </button>
     );
 
-    if (searching) {
+    if (status === "loading") {
       return (
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-two-thirds">

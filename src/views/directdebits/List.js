@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
+import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 
 import { DataReferences } from "../../references/DataReferences";
@@ -17,26 +18,18 @@ const DirectDebitList = () => {
 
   const [toggle, setToggle] = useState([]);
   // const [page, setPage] = useState(1)
-  const [searching, setSearching] = useState(false);
   const [exportForm, setExportForm] = useState(false);
   const [exportFile, setExportFile] = useState({ type: "csv", date: 1 });
   const [filterForm, setFilterForm] = useState({ date: 1 });
-  const [directDebits, setDirectDebits] = useState(undefined);
   const Ref = "DirectDebitList";
   const DataRows = DataReferences[Ref];
 
-  useEffect(() => {
-    const searchCall = async () => {
-      setSearching(true);
-      const call = await Read.DirectDebits({
-        TargetId: "",
-        currentPage: pagination,
-      });
-      setDirectDebits(call);
-      setSearching(false);
-    };
-    searchCall();
-  }, [pagination]);
+  const { data, status } = useQuery("dd", async () => {
+    return Read.DirectDebits({
+      TargetId: "",
+      currentPage: pagination,
+    });
+  });
 
   const exportHTMLForm = () => {
     return (
@@ -98,16 +91,12 @@ const DirectDebitList = () => {
 
   const directDebitExport = () => {
     const totalRecords =
-      directDebits !== undefined && directDebits !== null && !searching
-        ? directDebits.totalCount
-        : "Unknown";
+      data !== undefined && status !== "loading" ? data.totalCount : "Unknown";
     const totalResidents =
-      directDebits !== undefined && directDebits !== null && !searching
-        ? directDebits.residents
-        : "Unknown";
+      data !== undefined && status !== "loading" ? data.residents : "Unknown";
     const totalAmount =
-      directDebits !== undefined && directDebits !== null && !searching
-        ? CurrencyFormat(directDebits.totalAmount)
+      data !== undefined && status !== "loading"
+        ? CurrencyFormat(data.totalAmount)
         : "Unknown";
 
     return (
@@ -169,13 +158,10 @@ const DirectDebitList = () => {
   };
 
   const directDebitView = () => {
-    if (searching) {
+    if (status === "loading") {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
-    if (directDebits === undefined) {
-      return;
-    }
-    if (directDebits === null) {
+    if (data === undefined) {
       return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
 
@@ -195,7 +181,7 @@ const DirectDebitList = () => {
             </tr>
           </thead>
           <tbody className="govuk-table__body">
-            {directDebits.results.map((directDebit, trKey) => {
+            {data.results.map((directDebit, trKey) => {
               return (
                 <Fragment key={trKey}>
                   <tr className="govuk-table__row">
@@ -292,10 +278,10 @@ const DirectDebitList = () => {
         </table>
 
         <Pagination
-          total={directDebits.totalCount}
-          page={directDebits.currentPage}
+          total={data.totalCount}
+          page={data.currentPage}
           prefix="/direct-debit"
-          divided={directDebits.totalPages}
+          divided={data.totalPages}
         />
       </div>
     );

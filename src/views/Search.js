@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
+import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 
 import { CurrencyFormat } from "../references/Functions";
@@ -14,39 +15,29 @@ const Tenants = () => {
   const page = params.page ? Number(params.page) : 1;
   const Type = params.type ? params.type : "Tenant";
 
-  const [searching, setSearching] = useState(false);
-  const [tenants, setTenants] = useState(undefined);
-
-  useEffect(() => {
-    const searchCall = async () => {
-      setSearching(true);
-      let personType = 0;
-      TextReferences[Ref].forEach((val, key) => {
-        if (Type === val.value) {
-          personType = key;
-        }
-      });
-      const getTenants = await Read.HousingSearchTenant({
-        personType,
-        page,
-        search,
-      });
-      // console.log(getTenants)
-      setTenants(getTenants);
-      setSearching(false);
-    };
-    searchCall();
-  }, [page, search, Type]);
+  const { data, status } = useQuery("search", async () => {
+    let personType = 0;
+    TextReferences[Ref].forEach((val, key) => {
+      if (Type === val.value) {
+        personType = key;
+      }
+    });
+    return Read.HousingSearchTenant({
+      personType,
+      page,
+      search,
+    });
+  });
 
   const searchResults = () => {
-    if (searching) {
+    if (status === "loading") {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
-    if (tenants === undefined) {
+    if (data === undefined) {
       return;
     }
 
-    if (tenants === null) {
+    if (data === null) {
       const searchTypeName = TextReferences[Ref].filter(
         (opt) => Type === opt.value
       );
@@ -69,7 +60,7 @@ const Tenants = () => {
             </tr>
           </thead>
           <tbody className="govuk-table__body">
-            {tenants.results.persons.map((tenant) => {
+            {data.results.persons.map((tenant) => {
               return (
                 <Fragment key={tenant.id}>
                   <tr className={`govuk-table__row ${tenant.id}`}>
@@ -112,13 +103,11 @@ const Tenants = () => {
         </table>
 
         <Pagination
-          total={tenants.total}
+          total={data.total}
           page={page}
           prefix={`${RouteConstants.SEARCH}/${Type}/${search}`}
           divided={
-            Math.round(tenants.total / 12) > 1
-              ? Math.round(tenants.total / 12)
-              : 1
+            Math.round(data.total / 12) > 1 ? Math.round(data.total / 12) : 1
           }
         />
       </>

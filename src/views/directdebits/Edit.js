@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 
 import Form from "../../references/Form";
@@ -10,28 +11,22 @@ import * as Update from "../../services/Update";
 const DirectDebitEdit = () => {
   const params = useParams();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
-
-  const [searching, setSearching] = useState(true);
   const [data, setData] = useState(undefined);
 
-  useEffect(() => {
-    const searchCall = async () => {
-      const request = await Read.DirectDebit({ id: TenantId });
-      setData({
-        id: request?.id,
-        additionalAmount: request?.additionalAmount
-          ? Number(request?.additionalAmount)
-          : null,
-        preferredDate: request?.preferredDate
-          ? Number(request?.preferredDate)
-          : null,
-        reason: request?.reason,
-        fixedAmount: request?.fixedAmount ? Number(request?.fixedAmount) : null,
-      });
-      setSearching(false);
-    };
-    searchCall();
-  }, [TenantId]);
+  const { status } = useQuery("search", async () => {
+    const request = await Read.DirectDebit({ id: TenantId });
+    setData({
+      id: request?.id,
+      additionalAmount: request?.additionalAmount
+        ? Number(request?.additionalAmount)
+        : null,
+      preferredDate: request?.preferredDate
+        ? Number(request?.preferredDate)
+        : null,
+      reason: request?.reason,
+      fixedAmount: request?.fixedAmount ? Number(request?.fixedAmount) : null,
+    });
+  });
 
   const [validate, setValidate] = useState(false);
   const onSubmit = (e) => {
@@ -52,7 +47,7 @@ const DirectDebitEdit = () => {
     </Link>
   );
 
-  if (searching) {
+  if (status === "loading") {
     return (
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
