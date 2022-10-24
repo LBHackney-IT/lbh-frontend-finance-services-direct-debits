@@ -33,11 +33,7 @@ const Tenants = () => {
     if (status === "loading") {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
-    if (data === undefined) {
-      return;
-    }
-
-    if (data === null) {
+    if (data === undefined || data?.results?.persons.length === 0) {
       const searchTypeName = TextReferences[Ref].filter(
         (opt) => Type === opt.value
       );
