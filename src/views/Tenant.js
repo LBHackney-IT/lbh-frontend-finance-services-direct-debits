@@ -128,7 +128,9 @@ const Tenant = () => {
           ])}
           <PropertiesList data={tenants} targetId={tenants.id} />
           <DirectDebitList
-            data={directDebits ? { results: directDebits } : undefined}
+            data={
+              directDebits !== undefined ? { results: directDebits } : undefined
+            }
           />
         </>
       ) : (
