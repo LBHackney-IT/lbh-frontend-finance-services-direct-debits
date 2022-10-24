@@ -59,7 +59,7 @@ const TenantView = (params) => {
 const DirectDebitMaintenance = (params) => {
   const { directDebit } = params;
   const Ref = "DirectDebitMaintenance";
-  const maintenance = directDebit.directDebitMaintenance;
+  const maintenance = directDebit?.directDebitMaintenance;
 
   if (!maintenance.length) {
     return (
