@@ -127,7 +127,9 @@ const Tenant = () => {
             { key: "Date of Birth", val: DateFormat(tenants.dateOfBirth) },
           ])}
           <PropertiesList data={tenants} targetId={tenants.id} />
-          <DirectDebitList data={directDebits} />
+          <DirectDebitList
+            data={directDebits ? { results: directDebits } : undefined}
+          />
         </>
       ) : (
         ""

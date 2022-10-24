@@ -61,7 +61,7 @@ const DirectDebitMaintenance = (params) => {
   const Ref = "DirectDebitMaintenance";
   const maintenance = directDebit?.directDebitMaintenance;
 
-  if (!maintenance.length) {
+  if (directDebit?.directDebitMaintenance && !maintenance.length) {
     return (
       <>
         <h2>{TextReferences.Titles[Ref]}</h2>

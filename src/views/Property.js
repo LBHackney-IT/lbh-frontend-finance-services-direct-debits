@@ -176,16 +176,16 @@ const Property = () => {
         <h2>{TextReferences.TextRef.Tenure}</h2>
         {descriptionList([
           { key: "PRN", val: property.paymentReference },
-          { key: "Tenancy Type", val: property.tenureType.description },
+          { key: "Tenancy Type", val: property?.tenureType?.description },
           {
             key: "Tenancy Start Date",
             val: DateFormat(property.startOfTenureDate),
           },
           {
             key: "Property Reference #",
-            val: property.tenuredAsset.propertyReference,
+            val: property?.tenuredAsset?.propertyReference,
           },
-          { key: "Start Date", val: DateFormat(property.startOfTenureDate) },
+          { key: "Start Date", val: DateFormat(property?.startOfTenureDate) },
         ])}
         <DirectDebitList
           data={directDebits ? { results: directDebits } : undefined}
