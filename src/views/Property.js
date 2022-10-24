@@ -32,11 +32,12 @@ const Property = () => {
 
   const tenantsHTML = () => {
     if (property === undefined) {
-      return;
+      return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
-    if (!property.householdMembers.length) {
-      return;
+    if (property?.householdMembers || !property.householdMembers.length) {
+      return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
+
     return (
       <>
         <h2>{TextReferences.Titles.Tenants}</h2>
