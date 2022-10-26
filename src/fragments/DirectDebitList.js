@@ -8,7 +8,7 @@ const DirectDebitList = (params) => {
   const { data } = params;
   const h2 = <h2>{TextReferences.Titles.DirectDebits}</h2>;
 
-  console.log({ directDebitList: data })
+  console.log({ directDebitList: data });
 
   if (data === undefined) {
     return (
@@ -20,19 +20,23 @@ const DirectDebitList = (params) => {
   }
 
   if (data?.results) {
-    return <>
-      {h2}
-      <p>No direct debits results.</p>
-      <hr />
-    </>;
+    return (
+      <>
+        {h2}
+        <p>No direct debits results.</p>
+        <hr />
+      </>
+    );
   }
 
   if (!data.results.length) {
-    return <>
-      {h2}
-      <p>No direct debits found.</p>
-      <hr />
-    </>;
+    return (
+      <>
+        {h2}
+        <p>No direct debits found.</p>
+        <hr />
+      </>
+    );
   }
 
   return (
