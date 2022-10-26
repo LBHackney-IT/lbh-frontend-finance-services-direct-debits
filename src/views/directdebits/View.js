@@ -100,14 +100,16 @@ const DirectDebitView = () => {
   const [tab, setTab] = useState("status");
 
   const { data: directDebit, status } = useQuery("directDebit", async () => {
-    return Read.DirectDebit({ id });
+    const call = await Read.DirectDebit({ id });
+    return call;
   });
 
   const targetId = directDebit?.targetId;
   const { data: tenant, status: searchingTenant } = useQuery(
     "person",
     async () => {
-      return Read.Person({ id: directDebit.targetId });
+      const call = await Read.Person({ id: directDebit.targetId });
+      return call;
     },
     {
       enabled: !!targetId,

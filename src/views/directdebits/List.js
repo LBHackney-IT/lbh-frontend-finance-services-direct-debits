@@ -25,10 +25,11 @@ const DirectDebitList = () => {
   const DataRows = DataReferences[Ref];
 
   const { data, status } = useQuery("dd", async () => {
-    return Read.DirectDebits({
+    const call = await Read.DirectDebits({
       TargetId: "",
       currentPage: pagination,
     });
+    return call;
   });
 
   const exportHTMLForm = () => {

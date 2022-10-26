@@ -181,7 +181,8 @@ const Property = () => {
   const PropertyId = params.id ? decodeURIComponent(params.id) : "";
 
   const { data: property, status } = useQuery("property", async () => {
-    return Read.Property({ id: PropertyId });
+    const call = await Read.Property({ id: PropertyId });
+    return call;
   });
 
   const prn = property?.paymentReference;
@@ -189,7 +190,8 @@ const Property = () => {
   const { data: directDebits } = useQuery(
     "directDebit",
     async () => {
-      return Read.DirectDebitPRN({ prn });
+      const call = await Read.DirectDebitPRN({ prn });
+      return call;
     },
     {
       enabled: !!prn,

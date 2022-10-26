@@ -28,8 +28,8 @@ const TenantForm = () => {
   });
 
   const { status } = useQuery("search", async () => {
-    const response = await Read.Person({ id: TenantId });
-    setData(response);
+    const call = await Read.Person({ id: TenantId });
+    setData(call);
   });
 
   const [validate, setValidate] = useState(false);

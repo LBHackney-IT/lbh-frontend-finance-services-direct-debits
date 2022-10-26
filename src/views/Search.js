@@ -22,11 +22,12 @@ const Tenants = () => {
         personType = key;
       }
     });
-    return Read.HousingSearchTenant({
+    const call = await Read.HousingSearchTenant({
       personType,
       page,
       search,
     });
+    return call;
   });
 
   const searchResults = () => {
