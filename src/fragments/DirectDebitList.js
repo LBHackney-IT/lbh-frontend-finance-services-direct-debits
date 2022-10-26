@@ -25,14 +25,11 @@ const DirectDebitList = (params) => {
     </>
   );
 
-  if (!data?.results) {
-    console.log(data);
-    console.log({ noResults: data });
+  if (data?.results) {
     return noResults;
   }
 
   if (!data.results.length) {
-    console.log({ noLenght: data });
     return noResults;
   }
 
