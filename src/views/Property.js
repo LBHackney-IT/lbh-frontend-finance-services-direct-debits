@@ -35,10 +35,7 @@ const Property = () => {
       return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
 
-    if (
-      property?.householdMembers ||
-      property.householdMembers.length === 0
-    ) {
+    if (property?.householdMembers || property.householdMembers.length === 0) {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
 
@@ -130,15 +127,15 @@ const Property = () => {
         return 0;
       }
       return (
-        property?.charges?.combinedRentCharges +
-        property?.charges?.combinedServiceCharges +
-        property?.charges?.currentBalance +
-        property?.charges?.originalRentCharge +
-        property?.charges?.originalServiceCharge +
-        property?.charges?.otherCharges +
-        property?.charges?.rent +
-        property?.charges?.serviceCharge +
-        property?.charges?.tenancyInsuranceCharge
+        property.charges.combinedRentCharges +
+        property.charges.combinedServiceCharges +
+        property.charges.currentBalance +
+        property.charges.originalRentCharge +
+        property.charges.originalServiceCharge +
+        property.charges.otherCharges +
+        property.charges.rent +
+        property.charges.serviceCharge +
+        property.charges.tenancyInsuranceCharge
       );
     };
 
