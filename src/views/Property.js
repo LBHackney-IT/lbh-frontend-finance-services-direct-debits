@@ -184,7 +184,7 @@ const Property = () => {
     return Read.Property({ id: PropertyId });
   });
 
-  const prn = property.paymentReference;
+  const prn = property?.paymentReference;
 
   const { data: directDebits } = useQuery(
     "directDebit",
