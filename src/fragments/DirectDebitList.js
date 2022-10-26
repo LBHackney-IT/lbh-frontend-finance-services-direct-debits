@@ -8,8 +8,6 @@ const DirectDebitList = (params) => {
   const { data } = params;
   const h2 = <h2>{TextReferences.Titles.DirectDebits}</h2>;
 
-  console.log({ directDebitList: data });
-
   if (data === undefined) {
     return (
       <>
@@ -20,7 +18,6 @@ const DirectDebitList = (params) => {
   }
 
   if (!data?.results) {
-    console.log(data?.results);
     return (
       <>
         {h2}
