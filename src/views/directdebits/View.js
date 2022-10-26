@@ -103,11 +103,10 @@ const DirectDebitView = () => {
     try {
       return await Read.DirectDebit({ id });
     } catch (error) {
-      console.log(error);
+      console.log('error on direct debit', error);
+      throw error;
     }
   });
-
-  console.log(directDebit);
 
   const targetId = directDebit?.targetId;
   const { data: tenant, status: searchingTenant } = useQuery(
@@ -116,7 +115,8 @@ const DirectDebitView = () => {
       try {
         return await Read.Person({ id: directDebit.targetId });
       } catch (error) {
-        console.log(error);
+        console.log('error on person', error);
+        throw error;
       }
     },
     {
