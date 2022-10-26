@@ -17,14 +17,20 @@ const DirectDebitList = (params) => {
     );
   }
 
-  if (data?.results || !data.results.length) {
-    return (
-      <>
-        {h2}
-        <p>No direct debits setup yet.</p>
-        <hr />
-      </>
-    );
+  const noResults = (
+    <>
+      {h2}
+      <p>No direct debits setup yet.</p>
+      <hr />
+    </>
+  );
+
+  if (data?.results) {
+    return noResults;
+  }
+
+  if (!data.results.length) {
+    return noResults;
   }
 
   return (
