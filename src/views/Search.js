@@ -29,8 +29,6 @@ const Tenants = () => {
     });
   });
 
-  console.log({ call: data });
-
   const searchResults = () => {
     if (status === "loading") {
       return <h4>{TextReferences.TextRef.Searching}</h4>;

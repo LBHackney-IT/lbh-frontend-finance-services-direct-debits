@@ -35,7 +35,7 @@ const Property = () => {
       return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
 
-    if (property?.householdMembers || property.householdMembers.length === 0) {
+    if (property?.householdMembers && property.householdMembers.length === 0) {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
 
