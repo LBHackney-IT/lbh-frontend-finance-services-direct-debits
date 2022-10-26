@@ -103,7 +103,7 @@ const DirectDebitView = () => {
     try {
       return await Read.DirectDebit({ id });
     } catch (error) {
-      console.log('error on direct debit', error);
+      console.log("error on direct debit", error);
       throw error;
     }
   });
@@ -115,7 +115,7 @@ const DirectDebitView = () => {
       try {
         return await Read.Person({ id: directDebit.targetId });
       } catch (error) {
-        console.log('error on person', error);
+        console.log("error on person", error);
         throw error;
       }
     },
