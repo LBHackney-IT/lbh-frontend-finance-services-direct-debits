@@ -31,6 +31,9 @@ const Property = () => {
   );
 
   const tenantsHTML = () => {
+
+    console.log(property)
+
     if (property === undefined) {
       return <h4>{TextReferences.TextRef.NothingFound}</h4>;
     }
