@@ -17,7 +17,7 @@ const DirectDebitList = (params) => {
     );
   }
 
-  if (data?.results || !data.results.length ) {
+  if (data?.results || !data.results.length) {
     return (
       <>
         {h2}
