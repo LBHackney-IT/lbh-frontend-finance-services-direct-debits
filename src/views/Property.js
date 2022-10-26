@@ -37,7 +37,7 @@ const Property = () => {
 
     if (
       property?.householdMembers ||
-      [...property.householdMembers].length === 0
+      property.householdMembers.length === 0
     ) {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
@@ -126,19 +126,19 @@ const Property = () => {
     }
 
     const TotalCharge = () => {
-      if (!property.charges) {
+      if (property?.charges) {
         return 0;
       }
       return (
-        property.charges.combinedRentCharges +
-        property.charges.combinedServiceCharges +
-        property.charges.currentBalance +
-        property.charges.originalRentCharge +
-        property.charges.originalServiceCharge +
-        property.charges.otherCharges +
-        property.charges.rent +
-        property.charges.serviceCharge +
-        property.charges.tenancyInsuranceCharge
+        property?.charges?.combinedRentCharges +
+        property?.charges?.combinedServiceCharges +
+        property?.charges?.currentBalance +
+        property?.charges?.originalRentCharge +
+        property?.charges?.originalServiceCharge +
+        property?.charges?.otherCharges +
+        property?.charges?.rent +
+        property?.charges?.serviceCharge +
+        property?.charges?.tenancyInsuranceCharge
       );
     };
 
@@ -180,11 +180,11 @@ const Property = () => {
         )}
         <h2>{TextReferences.TextRef.Tenure}</h2>
         {descriptionList([
-          { key: "PRN", val: property.paymentReference },
+          { key: "PRN", val: property?.paymentReference },
           { key: "Tenancy Type", val: property?.tenureType?.description },
           {
             key: "Tenancy Start Date",
-            val: DateFormat(property.startOfTenureDate),
+            val: DateFormat(property?.startOfTenureDate),
           },
           {
             key: "Property Reference #",
