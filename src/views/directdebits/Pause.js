@@ -14,8 +14,8 @@ const DirectDebitPause = () => {
 
   const [data, setData] = useState(undefined);
 
-  const { status } = useQuery("search", async () => {
-    const request = await Read.DirectDebit({ id: TenantId });
+  const { status } = useQuery("directDebitPause", () => {
+    const request = Read.DirectDebit({ id: TenantId });
     setData({
       id: request?.id,
       status: "Paused",

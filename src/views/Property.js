@@ -180,18 +180,16 @@ const Property = () => {
   const params = useParams();
   const PropertyId = params.id ? decodeURIComponent(params.id) : "";
 
-  const { data: property, status } = useQuery("property", async () => {
-    const call = await Read.Property({ id: PropertyId });
-    return call;
+  const { data: property, status } = useQuery("property", () => {
+    return Read.Property({ id: PropertyId });
   });
 
   const prn = property?.paymentReference;
 
   const { data: directDebits } = useQuery(
     "directDebit",
-    async () => {
-      const call = await Read.DirectDebitPRN({ prn });
-      return call;
+    () => {
+      return Read.DirectDebitPRN({ prn });
     },
     {
       enabled: !!prn,

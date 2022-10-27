@@ -27,16 +27,16 @@ const TenantForm = () => {
     personTypes: [type],
   });
 
-  const { status } = useQuery("search", async () => {
-    const call = await Read.Person({ id: TenantId });
+  const { status } = useQuery("tenantForm", () => {
+    const call = Read.Person({ id: TenantId });
     setData(call);
   });
 
   const [validate, setValidate] = useState(false);
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const post = await Create.postPerson(data);
+    const post = Create.postPerson(data);
     console.log(post);
   };
 

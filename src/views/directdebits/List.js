@@ -24,8 +24,8 @@ const DirectDebitList = () => {
   const Ref = "DirectDebitList";
   const DataRows = DataReferences[Ref];
 
-  const { data, status } = useQuery("dd", async () => {
-    const call = await Read.DirectDebits({
+  const { data, status } = useQuery("directDebitList", () => {
+    const call = Read.DirectDebits({
       TargetId: "",
       currentPage: pagination,
     });

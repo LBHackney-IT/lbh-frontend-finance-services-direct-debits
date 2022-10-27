@@ -13,8 +13,8 @@ const DirectDebitEdit = () => {
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const [data, setData] = useState(undefined);
 
-  const { status } = useQuery("search", async () => {
-    const request = await Read.DirectDebit({ id: TenantId });
+  const { status } = useQuery("directDebitEdit", () => {
+    const request = Read.DirectDebit({ id: TenantId });
     setData({
       id: request?.id,
       additionalAmount: request?.additionalAmount

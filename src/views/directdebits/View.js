@@ -99,25 +99,15 @@ const DirectDebitView = () => {
   const id = params.id ? decodeURIComponent(params.id) : "";
   const [tab, setTab] = useState("status");
 
-  const { data: directDebit, status } = useQuery("directDebit", async () => {
-    try {
-      return await Read.DirectDebit({ id });
-    } catch (error) {
-      console.log("error on direct debit", error);
-      throw error;
-    }
+  const { data: directDebit, status } = useQuery("directDebitView", () => {
+    return Read.DirectDebit({ id });
   });
 
   const targetId = directDebit?.targetId;
   const { data: tenant, status: searchingTenant } = useQuery(
-    "person",
-    async () => {
-      try {
-        return await Read.Person({ id: directDebit.targetId });
-      } catch (error) {
-        console.log("error on person", error);
-        throw error;
-      }
+    "directdebitViewPerson",
+    () => {
+      return Read.Person({ id: directDebit.targetId });
     },
     {
       enabled: !!targetId,

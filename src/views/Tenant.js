@@ -15,17 +15,15 @@ const Tenant = () => {
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const Type = params.type ? params.type : "Tenant";
 
-  const { data: tenants, status } = useQuery("tenant", async () => {
-    const call = await Read.Person({ id: TenantId });
-    return call;
+  const { data: tenants, status } = useQuery("tenantPersonRead", () => {
+    return Read.Person({ id: TenantId });
   });
 
-  const { data: directDebits } = useQuery("directDebit", async () => {
-    const call = await Read.DirectDebits({
+  const { data: directDebits } = useQuery("TenantDirectDebit", () => {
+    return Read.DirectDebits({
       TargetId: TenantId,
       currentPage: 1,
     });
-    return call;
   });
 
   return (

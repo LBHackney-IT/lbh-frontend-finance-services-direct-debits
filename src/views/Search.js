@@ -15,19 +15,18 @@ const Tenants = () => {
   const page = params.page ? Number(params.page) : 1;
   const Type = params.type ? params.type : "Tenant";
 
-  const { data, status } = useQuery("search", async () => {
+  const { data, status } = useQuery("search", () => {
     let personType = 0;
     TextReferences[Ref].forEach((val, key) => {
       if (Type === val.value) {
         personType = key;
       }
     });
-    const call = await Read.HousingSearchTenant({
+    return Read.HousingSearchTenant({
       personType,
       page,
       search,
     });
-    return call;
   });
 
   const searchResults = () => {
