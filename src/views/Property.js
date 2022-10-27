@@ -186,7 +186,7 @@ const Property = () => {
 
   const prn = property?.paymentReference;
 
-  const { data: directDebits } = useQuery(
+  const { data: directDebits, status: ddStatus } = useQuery(
     "directDebit",
     () => {
       return Read.DirectDebitPRN({ prn });
@@ -202,8 +202,8 @@ const Property = () => {
       <TenantsView status={status} property={property} />
       <DirectDebitList
         data={
-          Array.isArray(directDebits)
-            ? { results: [...directDebits] }
+          ddStatus !== "loading" && directDebits !== undefined
+            ? { results: directDebits }
             : undefined
         }
       />
