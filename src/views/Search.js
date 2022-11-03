@@ -72,7 +72,7 @@ const Tenants = () => {
                     </Link>
                   </td>
                   <td className="govuk-table__cell">
-                    {tenant.personTypes.join(" / ")} ({Type})
+                    {tenant.personTypes ? tenant.personTypes.join(" / ") : ''} ({Type})
                   </td>
                   <td className="govuk-table__cell">
                     {CurrencyFormat(tenant.totalBalance)}
