@@ -20,7 +20,7 @@ const TextRef = {
   Search: "Search",
   Searching: "Searching...",
   NothingFound: "No data was found.",
-  NoTenantRecords: "No tenant records found for ",
+  NoTenantRecords: "No tenant records found.",
   Transactions: "Transactions",
   LastTransactions: "Last Transactions",
   NoTransactions: "No transactions to show.",

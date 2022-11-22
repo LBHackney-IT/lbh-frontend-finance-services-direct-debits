@@ -34,15 +34,10 @@ const Tenants = () => {
       return <h4>{TextReferences.TextRef.Searching}</h4>;
     }
     if (data === undefined || data?.results?.persons.length === 0) {
-      const searchTypeName = TextReferences[Ref].filter(
-        (opt) => Type === opt.value
-      );
-      return (
-        <h4>
-          {TextReferences.TextRef.NoTenantRecords} &quot;{Type}&quot; in &quot;
-          {searchTypeName[0].text}&quot;.
-        </h4>
-      );
+      // const searchTypeName = TextReferences[Ref].filter(
+      //   (opt) => Type === opt.value
+      // );
+      return <h4>{TextReferences.TextRef.NoTenantRecords}</h4>;
     }
 
     return (
