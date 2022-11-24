@@ -26,7 +26,7 @@ const TenantView = (params) => {
     return <h4>{TextReferences.TextRef.NoTenantRecords}</h4>;
   }
 
-  const property = tenant.tenures.filter(
+  const property = tenant?.tenures?.filter(
     (ten) => ten.paymentReference === directDebit.paymentReference
   );
 
