@@ -92,5 +92,6 @@ export const DataReferences = {
       format: "",
     },
     { title: "Reason", sort: "reason", classes: "", format: "" },
+    { title: "Created By", sort: "createdBy", classes: "", format: "" },
   ],
 };
