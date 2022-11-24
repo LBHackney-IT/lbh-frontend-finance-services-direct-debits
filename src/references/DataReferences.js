@@ -45,7 +45,7 @@ export const DataReferences = {
     },
   ],
   DirectDebitMaintenance: [
-    { title: "Created Date", sort: "createdDate", classes: "", format: "" },
+    { title: "Created Date", sort: "createdDate", classes: "", format: "date" },
     { title: "Created By", sort: "createdBy", classes: "", format: "" },
     {
       title: "New Additional Amount",
