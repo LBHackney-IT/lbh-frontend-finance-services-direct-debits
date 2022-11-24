@@ -29,7 +29,7 @@ const DirectDebitPause = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     Update.pauseDirectDebit(data);
-    history.goBack()
+    history.goBack();
   };
 
   const h1 = <h1>Pause {TextReferences.Titles.DirectDebit}</h1>;

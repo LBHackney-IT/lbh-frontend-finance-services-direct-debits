@@ -33,7 +33,7 @@ const DirectDebitEdit = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     Update.updateDirectDebit(data);
-    history.goBack()
+    history.goBack();
   };
 
   const h1 = <h1>Edit {TextReferences.Titles.DirectDebit}</h1>;
