@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 import Form from "../../references/Form";
 import * as RouteConstants from "../../references/RouteConstants";
@@ -10,6 +10,7 @@ import * as Update from "../../services/Update";
 
 const DirectDebitEdit = () => {
   const params = useParams();
+  const history = useHistory();
   const TenantId = params.id ? decodeURIComponent(params.id) : "";
   const [data, setData] = useState(undefined);
 
@@ -32,6 +33,7 @@ const DirectDebitEdit = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     Update.updateDirectDebit(data);
+    history.goBack()
   };
 
   const h1 = <h1>Edit {TextReferences.Titles.DirectDebit}</h1>;
