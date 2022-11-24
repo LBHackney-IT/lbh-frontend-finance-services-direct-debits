@@ -10,6 +10,10 @@ import * as TextReferences from "../../references/TextReferences";
 import * as Read from "../../services/Read";
 import { TableBodyHTML } from "../../templates/Table";
 
+const queryRef = `${(Math.random() + 1)
+  .toString(36)
+  .substring(10)}DirectDebitList`;
+
 const DirectDebitList = () => {
   const params = useParams();
   const pagination = params.pagination
@@ -24,7 +28,7 @@ const DirectDebitList = () => {
   const Ref = "DirectDebitList";
   const DataRows = DataReferences[Ref];
 
-  const { data, status } = useQuery("directDebitList", () => {
+  const { data, status } = useQuery(queryRef, () => {
     const call = Read.DirectDebits({
       TargetId: "",
       currentPage: pagination,
